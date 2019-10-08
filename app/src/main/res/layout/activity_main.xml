@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="@android:drawable/ic_lock_power_off" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="right"
+            android:text="Logout"
+            android:textColor="@color/colorred"
+            android:textSize="13dp"
+            android:textStyle="bold|italic"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Hello Bookeater!"
+            android:textAlignment="center"
+            android:textColor="#2626c4"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Welcome to your personal bookstore!"
+            android:textColor="#2626c4"
+            android:textAlignment="center"
+            android:textSize="21sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/booksImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="45dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your books are : "
+            android:textColor="#2626c4"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/numberOfBooksTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:textColor="#2626c4"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/viewAllAvailableBooksButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View all Available Books"
+        android:textColor="@color/colorLightGrey"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="#2626c4"/>
+
+    <Button
+        android:id="@+id/myBooksButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="myBooks"
+        android:textAllCaps="false"
+        android:textColor="@color/colorLightGrey"
+        android:layout_marginBottom="5dp"
+        android:background="#2626c4"/>
+
+    <Button
+        android:id="@+id/continueReadingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continue Reading"
+        android:textColor="@color/colorLightGrey"
+        android:background="#2626c4"/>
+
+</LinearLayout>

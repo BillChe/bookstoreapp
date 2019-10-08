@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/linearLayoutLogin"
+    tools:context=".Activities.Login">
+
+    <TextView
+        android:id="@+id/appTitleET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Bookstore App"
+        android:textIsSelectable="false"
+        android:clickable="false"
+        android:textStyle="bold"
+        android:textColor="#d3d3d3"
+        android:textAlignment="center"
+        android:textSize="20pt"
+        android:background="#2626c4"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"/>
+
+
+    <ImageView
+        android:id="@+id/booksImageViewLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:clickable="false"/>
+
+    <EditText
+        android:id="@+id/usernameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Username"
+        android:backgroundTint="#2626c4"
+        android:textIsSelectable="false"
+        android:textStyle="italic"
+        android:textCursorDrawable="@color/colorLightGrey"
+        android:ems="10"
+        android:maxLength="12"/>
+
+    <TextView
+        android:id="@+id/passwordTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Password"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:clickable="false"/>
+
+    <EditText
+        android:id="@+id/passwordET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textStyle="italic"
+        android:hint="Enter Password"
+        android:backgroundTint="#2626c4"
+        android:textCursorDrawable="@color/colorLightGrey"
+        android:textIsSelectable="false"
+        android:maxLength="12"/>
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Login"
+        android:textColor="@color/colorLightGrey"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="45dp"
+        android:background="#2626c4" />
+
+    <TextView
+        android:id="@+id/registerHereTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textIsSelectable="false"
+        android:text="Not registered? Click on register button to register "
+        android:textAlignment="center"
+        android:textStyle="italic|bold"
+        android:textColor="#2626c4"
+        android:clickable="false"/>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="80dp"
+        android:layout_height="32dp"
+        android:text="Register"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#d3d3d3"
+        android:textColor="#000000"/>
+</LinearLayout>

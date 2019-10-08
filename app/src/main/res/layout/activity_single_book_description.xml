@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SingleBookDescription"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_actionbar_description_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="@color/colorLightGrey"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/bookTitleDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TITLE TEXT VIEW"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description : "
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textStyle="italic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="80dp">
+
+        <TextView
+            android:id="@+id/bookDescriptionTextTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HERE WILL SHOW BOOK'S DESCRIPTION" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/addToMyBooksButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLightGrey"
+        android:text="Add to myBooks" />
+
+    <Button
+        android:id="@+id/backToAllBooksButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colordarkgray"
+        android:text="Back to all Books" />
+
+    <Button
+        android:id="@+id/readButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Read"
+        android:textAllCaps="false"
+        android:background="@color/colordarkblue"
+        android:visibility="visible"/>
+
+</LinearLayout>
