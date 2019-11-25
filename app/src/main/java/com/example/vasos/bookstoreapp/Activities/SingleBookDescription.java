@@ -1,10 +1,14 @@
 package com.example.vasos.bookstoreapp.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -85,22 +89,35 @@ public class SingleBookDescription extends Activity {
         addToMyBooksButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Successfully added to your books!")
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //do things
-                                dialog.dismiss();
-                                addToMyBooksButton.setVisibility(View.INVISIBLE);
-                                readButton.setVisibility(View.VISIBLE);
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                isAddedToBooks = true;
-                MainActivity.appUser.setAppUserNoOfBooks(MainActivity.appUser.getAppUserNoOfBooks() + 1);
-            }
+                if (ContextCompat.checkSelfPermission(SingleBookDescription.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(SingleBookDescription.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            101);
+
+                    }
+                    else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Successfully added to your books!")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //do things
+                                    dialog.dismiss();
+                                    addToMyBooksButton.setVisibility(View.INVISIBLE);
+                                    readButton.setVisibility(View.VISIBLE);
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                    isAddedToBooks = true;
+                    MainActivity.appUser.setAppUserNoOfBooks(MainActivity.appUser.getAppUserNoOfBooks() + 1);
+                }
+                }
+
+
         });
     }
 

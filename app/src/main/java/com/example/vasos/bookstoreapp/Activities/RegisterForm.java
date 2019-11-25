@@ -9,18 +9,29 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.vasos.bookstoreapp.DB.SQLiteDbHelper;
+import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.R;
+
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
 
 public class RegisterForm extends Activity {
     private Button registerFormButton;
     private Context context;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    boolean registered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_register_form);
+
+        usernameEditText = findViewById(R.id.usernameET);
+        passwordEditText = findViewById(R.id.passwordET);
 
         context = this;
         registerFormButton = (Button) findViewById(R.id.registerFormButton);
@@ -34,24 +45,49 @@ public class RegisterForm extends Activity {
         registerFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Completed entry")
-                        .setMessage("You Are Now Registered")
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Continue with delete operation
-                                dialog.dismiss();
-                                Intent loginIntent = new Intent(RegisterForm.this,Login.class);
-                                startActivity(loginIntent);
-                            }
-                        })
-                        // A null listener allows the button to dismiss the dialog and take no further action.
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+
+
+                if((usernameEditText.getText()!=null) && (passwordEditText.getText()!=null))
+                {
+                    appUser = new AppUser(0,usernameEditText.getText().toString(),passwordEditText.getText().toString(),0, true);
+
+                    SQLiteDbHelper sqLiteDbHelper= new SQLiteDbHelper(context);
+                    sqLiteDbHelper.insertUser(appUser);
+
+
+                    new AlertDialog.Builder(context)
+                            .setTitle("Completed entry")
+                            .setMessage("You Are Now Registered")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    dialog.dismiss();
+                                    Intent loginIntent = new Intent(RegisterForm.this,Login.class);
+                                    startActivity(loginIntent);
+                                }
+                            })
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+
+                registered = true;
+
+
+
             }
+
         });
+
+        if(registered)
+        {
+            Intent loginIntent = new Intent(this,Login.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(loginIntent);
+            this.finish();
+        }
 
     }
 }

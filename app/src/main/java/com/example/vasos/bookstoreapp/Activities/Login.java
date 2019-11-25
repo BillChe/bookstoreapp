@@ -12,19 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.example.vasos.bookstoreapp.Helpers.DownloadImageTask;
-import com.example.vasos.bookstoreapp.Models.AppUser;
+import com.bumptech.glide.Glide;
 import com.example.vasos.bookstoreapp.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
-import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUserId;
 
 public class Login extends Activity {
     private Button loginBtn,registerBtn;
+    private TextView registerHereText;
     private EditText username;
     private EditText password;
     private String usernameStr,passwordStr = "";
@@ -39,62 +39,24 @@ public class Login extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
-        appUser = new AppUser(appUserId,"username1","123",0, false);
         context = this;
-        if(appUser.isIsUserLoggedIn())
-        {
-            Intent loginIntent = new Intent(Login.this,MainActivity.class);
-            loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            overridePendingTransition(0, 0);
-            startActivity(loginIntent);
-        }
+
         loginBtn = (Button) findViewById(R.id.loginButton);
         registerBtn  = (Button) findViewById(R.id.registerButton);
+        registerHereText = (TextView) findViewById(R.id.registerHereTV);
         username = (EditText) findViewById(R.id.usernameET);
         password = (EditText) findViewById(R.id.passwordET);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayoutLogin);
         booksImageView = (ImageView) findViewById(R.id.booksImageViewLogin);
 
-    }
+        try
+        {
+            Glide.with(this).load(booksImageUrl).into(booksImageView);
+        }
+        catch (Exception e)
+        {}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        new DownloadImageTask(booksImageView).execute(booksImageUrl);
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//STRWSTAAAA
-                usernameStr = username.getText().toString();
-                passwordStr = password.getText().toString();
-                if(!usernameStr.equals("") && !passwordStr.equals(""))
-                {
-                        Intent loginIntent = new Intent(Login.this,MainActivity.class);
-                        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(loginIntent);
-                }
-                else
-                {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Missing Field")
-                            .setMessage("Please enter your username and password")
-                            .setCancelable(false)
-                            // Specifying a listener allows you to take an action before dismissing the dialog.
-                            // The dialog is automatically dismissed when a dialog button is clicked.
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Continue with delete operation
-                                    dialog.dismiss();
-                                }
-                            })
-                            // A null listener allows the button to dismiss the dialog and take no further action.
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-
-            }
-        });
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +69,89 @@ public class Login extends Activity {
         });
 
 
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(appUser != null)
+        {
+            if(appUser.isIsUserLoggedIn())
+            {
+                registerBtn.setVisibility(View.GONE);
+                registerHereText.setVisibility(View.GONE);
+
+                loginBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {//STRWSTAAAA
+                        usernameStr = username.getText().toString();
+                        passwordStr = password.getText().toString();
+                        if(!usernameStr.equals("") && !passwordStr.equals(""))
+                        {
+                            if((usernameStr.equals(appUser.getAppUserName())) && (passwordStr.equals(appUser.getAppUserPassword())))
+                            {
+                                Intent loginIntent = new Intent(Login.this,MainActivity.class);
+
+                                loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(loginIntent);
+                            }
+                            else
+                            {
+                                new AlertDialog.Builder(context)
+                                        .setTitle("Missing Field")
+                                        .setMessage("Please enter your username and password")
+                                        .setCancelable(false)
+                                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                                        // The dialog is automatically dismissed when a dialog button is clicked.
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Continue with delete operation
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        // A null listener allows the button to dismiss the dialog and take no further action.
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }
+
+                        }
+                        else
+                        {
+                            new AlertDialog.Builder(context)
+                                    .setTitle("Missing Field")
+                                    .setMessage("Please enter your username and password")
+                                    .setCancelable(false)
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
+
+                    }
+                });
+            }
+        }
+
+      /*  if(appUser != null)
+        {
+            if(appUser.isIsUserLoggedIn())
+            {
+                Intent loginIntent = new Intent(Login.this,MainActivity.class);
+                loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                overridePendingTransition(0, 0);
+                startActivity(loginIntent);
+            }
+        }*/
 
     }
 

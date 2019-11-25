@@ -10,7 +10,11 @@
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/> -->
-
+<ProgressBar
+    android:id="@+id/progressBarPdf"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center" />
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"

@@ -1,18 +1,26 @@
 package com.example.vasos.bookstoreapp.Activities;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.vasos.bookstoreapp.Helpers.DownloadFile;
 import com.example.vasos.bookstoreapp.R;
 import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnTapListener;
 import com.github.barteksc.pdfviewer.util.FitPolicy;
+
+import java.io.File;
 
 public class BookView extends Activity {
 
@@ -21,6 +29,11 @@ public class BookView extends Activity {
     public static int currentPage = 0;
     private Handler handler;
     private boolean viewedFirstPage;
+    private static String selectedBookUrl = "http://maven.apache.org/maven-1.x/maven.pdf";
+    private static String TestselectedBookUrl = "https://archive.org/download/autobiobenfran00miffrich/autobiobenfran00miffrich.pdf";
+    private static String selectedBookName = "maven.pdf";
+    private static String TestselectedBookName = "benfran.pdf";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +42,17 @@ public class BookView extends Activity {
         setContentView(R.layout.activity_book_view);
 
         pdfView = (PDFView) findViewById(R.id.pdfView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarPdf);
 
+        pdfView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         Toast toast = Toast.makeText(getBaseContext(), bookFileTitle, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP,0,0);
         toast.show();
+
+        download(pdfView,TestselectedBookUrl);
+        view(pdfView);
 
     }
 
@@ -41,7 +60,19 @@ public class BookView extends Activity {
     protected void onResume() {
         super.onResume();
 
-        pdfView.fromAsset(bookFileTitle)
+
+    }
+
+   public void download(View v, String selectedBookUrl)
+   {
+       new DownloadFile().execute(selectedBookUrl, TestselectedBookName);
+   }
+
+    public void view(View v)
+    {
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/YourBooks/" + TestselectedBookName);  // -> filename = maven.pdf
+        Uri path = Uri.fromFile(pdfFile);
+        pdfView.fromFile(pdfFile)
                 //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(false)
@@ -57,13 +88,7 @@ public class BookView extends Activity {
                 .onPageChange(new OnPageChangeListener() {
                     @Override
                     public void onPageChanged(int page, int pageCount) {
-                        page = page + 1;
-                        currentPage = page;
-                        if(viewedFirstPage)
-                        {
-                            Toast.makeText(getBaseContext(), String.valueOf(currentPage), Toast.LENGTH_SHORT).show();
-                        }
-                        viewedFirstPage= true;
+                            Toast.makeText(getBaseContext(), String.valueOf(page + 1), Toast.LENGTH_SHORT).show();
                     }
                 })
                 // allows to draw something on the current page, usually visible in the middle of the screen
@@ -74,30 +99,16 @@ public class BookView extends Activity {
                 // spacing between pages in dp. To define spacing color, set view background
                 .spacing(0)
                 .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(new OnLoadCompleteListener() {
+                    @Override
+                    public void loadComplete(int nbPages) {
+                        pdfView.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                })
                 .load();
+
     }
 
-   /* private static void downloadFile(String url, File outputFile) {
-        try {
-            URL u = new URL(url);
-            URLConnection conn = u.openConnection();
-            int contentLength = conn.getContentLength();
-
-            DataInputStream stream = new DataInputStream(u.openStream());
-
-            byte[] buffer = new byte[contentLength];
-            stream.readFully(buffer);
-            stream.close();
-
-            DataOutputStream fos = new DataOutputStream(new FileOutputStream(outputFile));
-            fos.write(buffer);
-            fos.flush();
-            fos.close();
-        } catch(FileNotFoundException e) {
-            return; // swallow a 404
-        } catch (IOException e) {
-            return; // swallow a 404
-        }
-    }*/
 
 }

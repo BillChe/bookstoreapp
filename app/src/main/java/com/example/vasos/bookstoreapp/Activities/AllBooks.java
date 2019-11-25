@@ -69,7 +69,7 @@ public class AllBooks extends Activity {
 
         for(int i = 0; i< allBooksAvailable; i++)
         {
-            books.add(new Book(i,"title " + i,"","",""));
+            books.add(new Book(i,"","","","",""));
         }
 
         BooksListViewAdapter booksListViewAdapter = new BooksListViewAdapter(this,books);
@@ -78,11 +78,9 @@ public class AllBooks extends Activity {
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
