@@ -12,7 +12,6 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.vasos.bookstoreapp.Helpers.DownloadFile;
 import com.example.vasos.bookstoreapp.R;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -51,7 +50,7 @@ public class BookView extends Activity {
         toast.setGravity(Gravity.TOP,0,0);
         toast.show();
 
-        download(pdfView,TestselectedBookUrl);
+        //download(pdfView,TestselectedBookUrl);
         view(pdfView);
 
     }
@@ -65,7 +64,7 @@ public class BookView extends Activity {
 
    public void download(View v, String selectedBookUrl)
    {
-       new DownloadFile().execute(selectedBookUrl, TestselectedBookName);
+      // new DownloadFile().execute(selectedBookUrl, TestselectedBookName);
    }
 
     public void view(View v)
