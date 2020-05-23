@@ -1,10 +1,12 @@
 package com.example.vasos.bookstoreapp.Adapters;
+
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,13 +15,17 @@ import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
 
 import java.util.ArrayList;
-public class BooksListViewAdapter extends BaseAdapter {
+import java.util.List;
+
+public class BooksListViewAdapter  extends ArrayAdapter<Book> {
 
     Context context;
-    ArrayList<Book> books ;
+    ArrayList<Book> books = new ArrayList<>() ;
 
 
-    public BooksListViewAdapter(Context context, ArrayList<Book> books) {
+    public BooksListViewAdapter(@NonNull Context context, int resource, @NonNull List<Book> objects)
+    {
+        super(context, resource, objects);
         this.context = context;
         this.books = books;
     }
@@ -28,11 +34,6 @@ public class BooksListViewAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return books.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return i;
     }
 
     @Override
@@ -46,34 +47,29 @@ public class BooksListViewAdapter extends BaseAdapter {
 
         final View result;
 
+        viewHolder = new ViewHolder();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        view = layoutInflater.inflate(R.layout.singlebookitem, null);
+        viewHolder.idTV = (TextView) view.findViewById(R.id.idTV);
+        viewHolder.bookTitleTV = (TextView) view.findViewById(R.id.booktitleTV);
+        viewHolder.bookCategoryTV = (TextView) view.findViewById(R.id.bookCategoryTV);
+        viewHolder.bookAuthorTV = (TextView) view.findViewById(R.id.bookAuthorTV);
+        viewHolder.bookISBNTV = (TextView) view.findViewById(R.id.bookISBNTV);
+        viewHolder.viewBookButton = (Button) view.findViewById(R.id.viewBookButton);
+        viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewBook = new Intent(context,SingleBookDescription.class);
+                context.startActivity(viewBook);
+            }
+        });
 
-
-            viewHolder = new ViewHolder();
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            view = layoutInflater.inflate(R.layout.singlebookitem, null);
-            viewHolder.idTV = (TextView) view.findViewById(R.id.idTV);
-            viewHolder.bookTitleTV = (TextView) view.findViewById(R.id.booktitleTV);
-            viewHolder.bookCategoryTV = (TextView) view.findViewById(R.id.bookCategoryTV);
-            viewHolder.bookAuthorTV = (TextView) view.findViewById(R.id.bookAuthorTV);
-            viewHolder.bookISBNTV = (TextView) view.findViewById(R.id.bookISBNTV);
-            viewHolder.viewBookButton = (Button) view.findViewById(R.id.viewBookButton);
-            viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent viewBook = new Intent(context,SingleBookDescription.class);
-                    context.startActivity(viewBook);
-                }
-            });
-
-
-            viewHolder.idTV.setText(String.valueOf(books.get(i).getBookId()));
-            viewHolder.bookTitleTV.setText(books.get(i).getBookTitle()) ;
-            viewHolder.bookCategoryTV.setText(books.get(i).getBookTitle());
-            viewHolder.bookAuthorTV.setText(books.get(i).getBookTitle());
-            viewHolder.bookISBNTV.setText(books.get(i).getBookTitle());
-
-
-            //view.setTag(viewHolder);
+        Book book = (Book) getItem(i);
+        viewHolder.idTV.setText(String.valueOf(book.getBookId()));
+        viewHolder.bookTitleTV.setText(book.getBookTitle()) ;
+        viewHolder.bookCategoryTV.setText(book.getBookTitle());
+        viewHolder.bookAuthorTV.setText(book.getBookTitle());
+        viewHolder.bookISBNTV.setText(book.getBookTitle());
 
 
 

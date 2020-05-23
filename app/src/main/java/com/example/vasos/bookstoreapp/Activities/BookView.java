@@ -33,6 +33,8 @@ public class BookView extends Activity {
     private static String selectedBookName = "maven.pdf";
     private static String TestselectedBookName = "benfran.pdf";
     private ProgressBar progressBar;
+    private  int lastPage = -1;
+    private String lastBookTitle = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

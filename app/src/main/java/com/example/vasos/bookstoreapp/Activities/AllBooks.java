@@ -23,7 +23,7 @@ public class AllBooks extends Activity {
 
     private Button logoutButton;
     private Toolbar actionBarToolbar;
-    private int allBooksAvailable = 3;
+    private ArrayList<Book> allBooksAvailable = new ArrayList<>();
     private int booksBought;
     private ListView booksListView;
     private Context context;
@@ -65,14 +65,9 @@ public class AllBooks extends Activity {
             }
         });
 
-        ArrayList<Book> books = new ArrayList<>();
 
-        for(int i = 0; i< allBooksAvailable; i++)
-        {
-            books.add(new Book(i,"","","","",""));
-        }
-
-        BooksListViewAdapter booksListViewAdapter = new BooksListViewAdapter(this,books);
+        allBooksAvailable = MainActivity.getAllBooks();
+        BooksListViewAdapter booksListViewAdapter = new BooksListViewAdapter(this,0,allBooksAvailable);
 
         booksListView.setAdapter(booksListViewAdapter);
 
