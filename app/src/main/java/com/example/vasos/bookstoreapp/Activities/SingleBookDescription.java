@@ -41,7 +41,7 @@ public class SingleBookDescription extends Activity {
     private LinearLayout downloadProgresBar;
     private TextView bookTitleDescriptionTextView,bookDescriptionTextTextView;
     private static boolean isAddedToBooks;
-    private static String TestselectedBookUrl = "https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf";
+    private static String TestselectedBookUrl = "https://archive.org/download/draculabr00stokuoft/draculabr00stokuoft.pdf";
     private static String TestselectedBookName = "benfran.pdf";
 
     @Override

@@ -87,37 +87,42 @@ public class MainActivity extends Activity {
                 "https://ia600200.us.archive.org/BookReader/BookReaderImages.php?zip=/3/items/natureofphysical00eddi/natureofphysical00eddi_jp2.zip&file=natureofphysical00eddi_jp2/natureofphysical00eddi_0007.jp2&scale=4&rotate=0");
 
         allBooks.add(book);
-        book = new Book(6,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
+        book = new Book(6,"Our surroundings; an elementary general science","Clement, Arthur G. Collister, Morton Christian, Thurston, E. L. (Ernest Lawton)",
                 "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
-                "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohist" +
-                        "oryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+                "Science","https://archive.org/download/oursurroundingse00clemrich/oursurroundingse00clemrich.pdf",
+                "https://ia802605.us.archive.org/BookReader/BookReaderImages.php?zip=/4/items/oursurroundingse00clemrich/oursurroundingse00clemrich_jp2" +
+                        ".zip&file=oursurroundingse00clemrich_jp2/oursurroundingse00clemrich_0001.jp2&scale=4&rotate=0");
 
         allBooks.add(book);
-        book = new Book(7,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
-                "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohist" +
-                        "oryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+        book = new Book(7,"Science, religion and reality","Joseph Needham, Arthur James Balfour",
+                "Essays on science, religion, and reality by various authors. Contents: Introduction; Magic Science and Religion; Historical relations of religion and science; Science and religion in the nineteenth century, The domain of physical science; Mechanistic biology and the religious consciousness; " +
+                        "Sphere of religion; Religion and psychology; Science Christianity and Modern Civilization",
+                "Science/Religion","https://archive.org/download/sciencereligionr00need/sciencereligionr00need.pdf",
+                "https://ia800303.us.archive.org/BookReader/" +
+                        "BookReaderImages.php?zip=/9/items/sciencereligionr00need/sciencereligionr00need_jp2.zip&file=sciencereligionr00need_jp2/sciencereligionr00need_0007.jp2&scale=4&rotate=0");
         allBooks.add(book);
-        book = new Book(8,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
-                "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohist" +
-                        "oryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+        book = new Book(8,"Science fiction and the prediction of the future : essays on foresight and fallacy","Gary Westfahl, Wong Kin Yuen, Amy Kit-sze Chan",
+                "Science fiction has always intrigued readers with depictions of an unforeseen future. Can the genre actually provide audiences with a glance into the world of tomorrow? " +
+                        "This collection of fifteen international and interdisciplinary essays examines the genre's predictions and breaks new ground by considering the prophetic functions of science fiction films," +
+                        " as well as science fiction literature",
+                "Science/Fiction","https://archive.org/download/" +
+                "Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo.pdf",
+                "https://ia801305.us.archive.org/BookReader/BookReaderImages.php?zip=/7/items/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/" +
+                        "Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_jp2.zip&file=Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_jp2/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_0000.jp2&scale=4&rotate=0");
         allBooks.add(book);
 
-        book = new Book(9,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
-                "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohist" +
-                        "oryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+        book = new Book(9,"The survivor","Tom Cain",
+                "The novel opens with Samuel Carver masquerading as a maintenance man. He sabotages the executive jet of wealthy Texan businessman Waylon McCabe. " +
+                        "The sabotage fails and McCabe begins to suspect that he was the target of an assassination as opposed to a victim of a freak accident. The novel then jumps forward to continue" +
+                        " the story of Cain's first novel, The Accident Man. Carver is recovering in a Swiss hospital and attempting to regain memories lost during the torture by that book's villain.The story centres around McCabe's attempt to obtain a lost Russian suitcase nuke in an effort to instigate a nuclear holocaust that would bring about the rapture; Carver aims to stop him.",
+                "Nuclear terrorism","https://archive.org/download/survivor00corg/survivor00corg.pdf",
+                "https://ia801601.us.archive.org/BookReader/BookReaderImages.php?zip=/21/items/survivor00corg/survivor00corg_jp2.zip&file=survivor00corg_jp2/survivor00corg_0001.jp2&scale=4&rotate=0");
         allBooks.add(book);
-        book = new Book(10,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
-                "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohist" +
-                        "oryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+        book = new Book(10,"Dracula","Bram Stoker",
+                "Dracula is an 1897 Gothic horror novel by Irish author Bram Stoker. It introduced the character of Count Dracula and established many conventions of subsequent vampire fantasy. The novel tells the story of Dracula's " +
+                        "attempt to move from Transylvania to England so that he may find new blood and spread the undead curse, and of the battle between Dracula and a small group of people led by Professor Abraham Van Helsing. ",
+                "Horror/Gothic","https://archive.org/download/draculabr00stokuoft/draculabr00stokuoft.pdf",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Dracula1st.jpeg/200px-Dracula1st.jpeg");
         allBooks.add(book);
     }
 
