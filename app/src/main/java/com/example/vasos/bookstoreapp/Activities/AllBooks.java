@@ -70,6 +70,7 @@ public class AllBooks extends Activity {
         BooksListViewAdapter booksListViewAdapter = new BooksListViewAdapter(this,0,allBooksAvailable);
 
         booksListView.setAdapter(booksListViewAdapter);
+        booksListViewAdapter.notifyDataSetChanged();
 
     }
 

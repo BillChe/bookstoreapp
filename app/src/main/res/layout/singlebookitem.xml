@@ -3,46 +3,75 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/allBooksLinearLayout">
+        android:id="@+id/allBooksLinearLayout"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
+            <TextView
+                android:id="@+id/idstaticTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: "
+                android:layout_weight="1"
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/idTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <TextView
+                android:id="@+id/booktitlestaticTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title: "
+                android:layout_weight="1"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/booktitleTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_weight="1"/>
 
+
+            <TextView
+                android:id="@+id/bookCategorystaticTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category: "
+                android:layout_weight="1"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/bookCategoryTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/bookAuthorstaticTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Author: "
+                android:layout_weight="1"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/bookAuthorTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
                 android:layout_weight="1"/>
 
             <TextView
@@ -50,22 +79,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Description: "
+                android:visibility="gone"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/viewBookButton"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/viewBookButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:text="View Details"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColorHighlight="@color/colorLightGrey"
+                android:background="@drawable/button_drawable"
+                android:textAllCaps="false"
+                android:textColor="@color/colorgray"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"/>
 
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColorHighlight="@color/colorLightGrey"
-            android:background="@drawable/view_button_hi"
-            android:textAllCaps="false"
-            android:textColor="#adde" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/allBooksImagesLinearLayout"
+        android:layout_weight="1"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleBookImageView">
+
+        </ImageView>
 
     </LinearLayout>
 

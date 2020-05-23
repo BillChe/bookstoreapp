@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     private ImageView booksImageView;
     public static String bookToReadFileTitle;
     private Bitmap bmp;
-    private static String booksImageUrl = "https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+    public static String booksImageUrl = "https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     private TextView numberOfBooksTextView;
     public static int appUserId = 0;
     public static AppUser appUser ;
@@ -115,8 +115,13 @@ public class MainActivity extends Activity {
             }
         });
 
-        String appUserNoOfBooks = String.valueOf(appUser.getAppUserNoOfBooks());
-        numberOfBooksTextView.setText(appUserNoOfBooks);
+        String appUserNoOfBooks = "0";
+        if(appUser!=null)
+        {
+            appUserNoOfBooks  = String.valueOf(appUser.getAppUserNoOfBooks());
+            numberOfBooksTextView.setText(appUserNoOfBooks);
+        }
+
     }
 
     @Override

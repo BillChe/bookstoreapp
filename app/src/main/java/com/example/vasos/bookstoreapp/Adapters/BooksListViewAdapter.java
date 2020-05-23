@@ -8,26 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.vasos.bookstoreapp.Activities.SingleBookDescription;
 import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.booksImageUrl;
 
 public class BooksListViewAdapter  extends ArrayAdapter<Book> {
 
     Context context;
-    ArrayList<Book> books = new ArrayList<>() ;
+    ArrayList<Book> books = new ArrayList<>();
 
 
-    public BooksListViewAdapter(@NonNull Context context, int resource, @NonNull List<Book> objects)
+    public BooksListViewAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Book> objects)
     {
         super(context, resource, objects);
         this.context = context;
-        this.books = books;
+        this.books = objects;
     }
 
 
@@ -56,6 +59,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         viewHolder.bookAuthorTV = (TextView) view.findViewById(R.id.bookAuthorTV);
         viewHolder.bookISBNTV = (TextView) view.findViewById(R.id.bookISBNTV);
         viewHolder.viewBookButton = (Button) view.findViewById(R.id.viewBookButton);
+        viewHolder.singleBookImageView = (ImageView) view.findViewById(R.id.singleBookImageView);
         viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,9 +71,10 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         Book book = (Book) getItem(i);
         viewHolder.idTV.setText(String.valueOf(book.getBookId()));
         viewHolder.bookTitleTV.setText(book.getBookTitle()) ;
-        viewHolder.bookCategoryTV.setText(book.getBookTitle());
-        viewHolder.bookAuthorTV.setText(book.getBookTitle());
-        viewHolder.bookISBNTV.setText(book.getBookTitle());
+        viewHolder.bookCategoryTV.setText(book.getBookGenre());
+        viewHolder.bookAuthorTV.setText(book.getBookAuthor());
+        viewHolder.bookISBNTV.setText(book.getBookDescription());
+        Glide.with(getContext()).load(booksImageUrl).centerInside().into(viewHolder.singleBookImageView);
 
 
 
@@ -84,6 +89,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         TextView bookCategoryTV;
         TextView bookISBNTV;
         TextView idTV;
+        ImageView singleBookImageView;
         private Button viewBookButton;
 
     }
