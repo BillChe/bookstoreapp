@@ -93,7 +93,7 @@ public class AllBooks extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent exitApp = new Intent(AllBooks.this,MainActivity.class);
-        //exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(exitApp);
     }
 

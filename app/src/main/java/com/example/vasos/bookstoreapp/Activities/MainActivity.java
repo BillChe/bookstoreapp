@@ -183,7 +183,7 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent exitApp = new Intent(MainActivity.this,Login.class);
-        //exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(exitApp);
     }
 
