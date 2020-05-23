@@ -98,7 +98,7 @@ public class SingleBookDescription extends Activity {
             @Override
             public void onClick(View view) {
                 Intent goBack = new Intent(SingleBookDescription.this,AllBooks.class);
-                //goBack.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                goBack.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(goBack);
             }
         });
