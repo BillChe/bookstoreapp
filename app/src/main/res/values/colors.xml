@@ -17,5 +17,6 @@
     <color name="colordarkgray">#637a91</color>
     <color name="colorpink">#f092b0</color>
     <color name="colorgray">#b7c0c7</color>
+    <color name="colorWhite">#fff</color>
 
 </resources>

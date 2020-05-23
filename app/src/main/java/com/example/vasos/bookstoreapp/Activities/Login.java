@@ -81,12 +81,10 @@ public class Login extends Activity {
         {
             if(appUser.isIsUserLoggedIn())
             {
-                registerBtn.setVisibility(View.GONE);
-                registerHereText.setVisibility(View.GONE);
 
                 loginBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {//STRWSTAAAA
+                    public void onClick(View view) {
                         usernameStr = username.getText().toString();
                         passwordStr = password.getText().toString();
                         if(!usernameStr.equals("") && !passwordStr.equals(""))

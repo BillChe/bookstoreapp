@@ -98,7 +98,7 @@
                 android:textColorHighlight="@color/colorLightGrey"
                 android:background="@drawable/button_drawable"
                 android:textAllCaps="false"
-                android:textColor="@color/colorgray"
+                android:textColor="@color/colorWhite"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="3dp"/>
 
@@ -114,8 +114,8 @@
         android:layout_weight="1"
         android:gravity="center">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="205dp"
+            android:layout_height="205dp"
             android:id="@+id/singleBookImageView">
 
         </ImageView>

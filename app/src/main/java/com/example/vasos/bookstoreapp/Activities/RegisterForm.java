@@ -11,7 +11,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.vasos.bookstoreapp.DB.SQLiteDbHelper;
 import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.R;
 
@@ -50,9 +49,9 @@ public class RegisterForm extends Activity {
                 if((usernameEditText.getText()!=null) && (passwordEditText.getText()!=null))
                 {
                     appUser = new AppUser(0,usernameEditText.getText().toString(),passwordEditText.getText().toString(),0, true);
-
+/*
                     SQLiteDbHelper sqLiteDbHelper= new SQLiteDbHelper(context);
-                    sqLiteDbHelper.insertUser(appUser);
+                    sqLiteDbHelper.insertUser(appUser);*/
 
 
                     new AlertDialog.Builder(context)

@@ -18,8 +18,6 @@ import com.example.vasos.bookstoreapp.R;
 
 import java.util.ArrayList;
 
-import static com.example.vasos.bookstoreapp.Activities.MainActivity.booksImageUrl;
-
 public class BooksListViewAdapter  extends ArrayAdapter<Book> {
 
     Context context;
@@ -74,7 +72,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         viewHolder.bookCategoryTV.setText(book.getBookGenre());
         viewHolder.bookAuthorTV.setText(book.getBookAuthor());
         viewHolder.bookISBNTV.setText(book.getBookDescription());
-        Glide.with(getContext()).load(booksImageUrl).centerInside().into(viewHolder.singleBookImageView);
+        Glide.with(getContext()).load(book.getBookImageUrl()).fitCenter().into(viewHolder.singleBookImageView);
 
 
 

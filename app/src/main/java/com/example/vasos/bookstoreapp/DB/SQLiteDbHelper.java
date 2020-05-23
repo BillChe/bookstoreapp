@@ -52,7 +52,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
 
     private void createBooks() {
         books[0] = new Book(0,"Benjamin Fraklin Bio", "Benjamin Fraklin","Written initially to guide his son, Franklin's autobiography is a lively, spellbinding account of his unique and eventful life. Stylistically his best work, it has become a classic in world literature, " +
-            "one to inspire and delight readers everywhere. ","Biography","https://archive.org/download/autobiobenfran00miffrich/autobiobenfran00miffrich.pdf");
+            "one to inspire and delight readers everywhere. ","Biography","https://archive.org/download/autobiobenfran00miffrich/autobiobenfran00miffrich.pdf","");
     }
 
     private void createTables(SQLiteDatabase sqLiteDatabase) {
