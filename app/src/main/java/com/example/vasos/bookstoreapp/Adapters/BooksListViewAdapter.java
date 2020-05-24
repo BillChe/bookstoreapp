@@ -78,6 +78,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
                 extras.putString("Description",book.getBookDescription());
                 extras.putString("Id", String.valueOf(book.getBookId()));
                 extras.putString("ImageUrl",book.getBookImageUrl());
+                extras.putString("BookUrl",book.getBookUrl());
                 viewBook.putExtras(extras);
                 context.startActivity(viewBook);
             }

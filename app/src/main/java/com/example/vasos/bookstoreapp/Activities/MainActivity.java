@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vasos.bookstoreapp.Helpers.DownloadImageTask;
 import com.example.vasos.bookstoreapp.Models.AppUser;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+
+import static com.example.vasos.bookstoreapp.Activities.BookView.lastOpenedBookName;
 
 public class MainActivity extends Activity {
     private Button logoutButton;
@@ -58,7 +61,7 @@ public class MainActivity extends Activity {
     {
         allBooks.clear();
         Book book = new Book(1,"Frankenstein","Shelley Mary",
-                "The 1818 edition of Frankenstein. This version is based on a digitisation by Distributed Proofreaders cross checked against an existing Project Gutenberg text and a new DP digitisation of the 1831 edition.",
+                "The 1818 edition of Frankenstein. This version is based on a digitisation by Distributed Proofreaders cross checked against an existing Project Gutenberg text and a new DP digitisation of the 1831 edition. Frankenstein; or, The Modern Prometheus is a novel written by English author Mary Shelley (1797–1851) that tells the story of Victor Frankenstein, a young scientist who creates a hideous sapient creature in an unorthodox scientific experiment.",
                 "Science Fiction","https://archive.org/download/Frankenstein1818Edition/frank-a5.pdf",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Frankenstein.1831.inside-cover.jpg/800px-Frankenstein.1831.inside-cover.jpg");
         allBooks.add(book);
@@ -80,7 +83,7 @@ public class MainActivity extends Activity {
 
         allBooks.add(book);
         book = new Book(5,"The nature of the physical world",
-                "Eddington, Arthur Stanley, Sir",
+                "Sir Arthur Stanley Eddington",
                 "In chapters 1–11, Eddington explains, in non-technical and sometimes entertaining language, the main ideas of modern physics as it stood in 1927. " +
                         "In chapters 12–15, he then discuses what he considers their main philosophical and religious implications.",
                 "Science/Philosophy","https://archive.org/download/natureofphysical00eddi/natureofphysical00eddi.pdf",
@@ -94,8 +97,7 @@ public class MainActivity extends Activity {
                         "awakening the desire to go farther afield and to explore in more detail the territory of some particular science. It gives the preliminary view and contact that make possible " +
                         "an intelligent choice of the sciences for more extensive and intensive study in later school years.",
                 "Science","https://archive.org/download/oursurroundingse00clemrich/oursurroundingse00clemrich.pdf",
-                "https://ia802605.us.archive.org/BookReader/BookReaderImages.php?zip=/4/items/oursurroundingse00clemrich/oursurroundingse00clemrich_jp2" +
-                        ".zip&file=oursurroundingse00clemrich_jp2/oursurroundingse00clemrich_0001.jp2&scale=4&rotate=0");
+                "https://ia802605.us.archive.org/BookReader/BookReaderImages.php?zip=/4/items/oursurroundingse00clemrich/oursurroundingse00clemrich_jp2.zip&file=oursurroundingse00clemrich_jp2/oursurroundingse00clemrich_0001.jp2&scale=4&rotate=0");
 
         allBooks.add(book);
         book = new Book(7,"Science, religion and reality","Joseph Needham, Arthur James Balfour",
@@ -108,7 +110,7 @@ public class MainActivity extends Activity {
         book = new Book(8,"Science fiction and the prediction of the future : essays on foresight and fallacy","Gary Westfahl, Wong Kin Yuen, Amy Kit-sze Chan",
                 "Science fiction has always intrigued readers with depictions of an unforeseen future. Can the genre actually provide audiences with a glance into the world of tomorrow? " +
                         "This collection of fifteen international and interdisciplinary essays examines the genre's predictions and breaks new ground by considering the prophetic functions of science fiction films," +
-                        " as well as science fiction literature",
+                        " as well as science fiction literature.",
                 "Science/Fiction","https://archive.org/download/" +
                 "Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo.pdf",
                 "https://ia801305.us.archive.org/BookReader/BookReaderImages.php?zip=/7/items/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/" +
@@ -168,17 +170,24 @@ public class MainActivity extends Activity {
         continueReadingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent continueReading = new Intent(MainActivity.this,BookView.class);
-                //myBooks.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(continueReading);
+                if(lastOpenedBookName!="")
+                {
+                    Intent continueReading = new Intent(MainActivity.this,BookView.class);
+                    continueReading.putExtra("lastOpenedBookName",lastOpenedBookName);
+                    startActivity(continueReading);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Sorry no last Opened Book Name found",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
         String appUserNoOfBooks = "0";
         if(appUser!=null)
         {
-            appUserNoOfBooks  = String.valueOf(appUser.getAppUserNoOfBooks());
-            numberOfBooksTextView.setText(appUserNoOfBooks);
+            numberOfBooksTextView.setText(String.valueOf(appUser.getAppUserNoOfBooks()));
         }
 
     }

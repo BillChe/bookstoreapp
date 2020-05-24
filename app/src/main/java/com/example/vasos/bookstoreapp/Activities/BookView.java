@@ -1,6 +1,7 @@
 package com.example.vasos.bookstoreapp.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,23 +25,34 @@ import java.io.File;
 public class BookView extends Activity {
 
     private PDFView pdfView;
-    public static String bookFileTitle = "ProblemSolvingwithAlgorithmsandDataStructures_compressed.pdf";
     public static int currentPage = 0;
     private Handler handler;
     private boolean viewedFirstPage;
-    private static String selectedBookUrl = "http://maven.apache.org/maven-1.x/maven.pdf";
-    private static String TestselectedBookUrl = "https://archive.org/download/autobiobenfran00miffrich/autobiobenfran00miffrich.pdf";
-    private static String selectedBookName = "maven.pdf";
-    private static String TestselectedBookName = "benfran.pdf";
+    public static String lastOpenedBookName = "";
+    private String TestselectedBookName = "";
     private ProgressBar progressBar;
     private  int lastPage = -1;
-    private String lastBookTitle = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_book_view);
+        Intent intent = getIntent();
+        TestselectedBookName = intent.getStringExtra("Title");
+        lastOpenedBookName = intent.getStringExtra("lastOpenedBookName");
+        if(lastOpenedBookName!=null)
+        {
+            if(!lastOpenedBookName.equals(""))
+            {
+                TestselectedBookName = lastOpenedBookName;
+            }
+        }
+        else
+        {
+            lastOpenedBookName = TestselectedBookName;
+        }
 
         pdfView = (PDFView) findViewById(R.id.pdfView);
         progressBar = (ProgressBar) findViewById(R.id.progressBarPdf);
@@ -48,7 +60,7 @@ public class BookView extends Activity {
         pdfView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
 
-        Toast toast = Toast.makeText(getBaseContext(), bookFileTitle, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getBaseContext(), TestselectedBookName, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP,0,0);
         toast.show();
 
@@ -71,7 +83,7 @@ public class BookView extends Activity {
 
     public void view(View v)
     {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/YourBooks/" + TestselectedBookName);  // -> filename = maven.pdf
+        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/YourBooks/" + TestselectedBookName+".pdf");  // -> filename = maven.pdf
         Uri path = Uri.fromFile(pdfFile);
         pdfView.fromFile(pdfFile)
                 //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default

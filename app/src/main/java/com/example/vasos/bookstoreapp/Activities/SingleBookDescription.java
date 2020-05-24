@@ -44,8 +44,8 @@ public class SingleBookDescription extends Activity {
     private TextView bookTitleDescriptionTextView,bookDescriptionTextTextView;
     private ImageView bookDescriptionImageView;
     private static boolean isAddedToBooks;
-    private static String TestselectedBookUrl = "https://archive.org/download/draculabr00stokuoft/draculabr00stokuoft.pdf";
-    private static String TestselectedBookName = "benfran.pdf";
+    private String selectedBookUrl = "";
+    private static String TestselectedBookName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class SingleBookDescription extends Activity {
         String description = intent.getStringExtra("Description");
         String id = intent.getStringExtra("Id");
         String imageUrl = intent.getStringExtra("ImageUrl");
+        selectedBookUrl = intent.getStringExtra("BookUrl");
 
         if(context!=null)
         Glide.with(context).load(imageUrl).fitCenter().into(bookDescriptionImageView);
@@ -94,18 +95,11 @@ public class SingleBookDescription extends Activity {
     protected void onResume() {
         super.onResume();
 
-        if(!isAddedToBooks){
-            readButton.setVisibility(View.INVISIBLE);
-
-        }
-        else{
-            addToMyBooksButton.setVisibility(View.INVISIBLE);
-        }
-
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent readBook = new Intent(SingleBookDescription.this,BookView.class);
+                readBook.putExtra("Title",bookToReadFileTitle);
                 startActivity(readBook);
             }
         });
@@ -130,7 +124,7 @@ public class SingleBookDescription extends Activity {
                     }
                     else
                 {
-                    download(TestselectedBookUrl);
+                    download(selectedBookUrl);
 
                 }
                 }
@@ -160,7 +154,7 @@ public class SingleBookDescription extends Activity {
 
     public void download(String selectedBookUrl)
     {
-        new DownloadFile().execute(selectedBookUrl, TestselectedBookName);
+        new DownloadFile().execute(selectedBookUrl, bookToReadFileTitle+".pdf");
     }
 
 
@@ -246,14 +240,13 @@ public class SingleBookDescription extends Activity {
                          public void onClick(DialogInterface dialog, int id) {
                              //do things
                              dialog.dismiss();
-                             addToMyBooksButton.setVisibility(View.INVISIBLE);
-                             readButton.setVisibility(View.VISIBLE);
+                             addToMyBooksButton.setVisibility(View.INVISIBLE);//!!!!!!!!!!!!!!!!!!!!!
+                             readButton.setVisibility(View.VISIBLE);//!!!!!!!!!!!!!!!!!!!!!
                          }
                      });
              AlertDialog alert = builder.create();
              alert.show();
-             isAddedToBooks = true;
-             MainActivity.appUser.setAppUserNoOfBooks(MainActivity.appUser.getAppUserNoOfBooks() + 1);
+
         }
      }
 }
