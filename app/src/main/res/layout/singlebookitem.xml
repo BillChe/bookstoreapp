@@ -24,12 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="ID: "
                 android:layout_weight="1"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/idTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/booktitlestaticTV"

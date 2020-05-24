@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
         allBooks.add(book);
 
         book = new Book(4,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
+                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science.",
                 "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
                 "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohistoryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
 
@@ -88,7 +88,11 @@ public class MainActivity extends Activity {
 
         allBooks.add(book);
         book = new Book(6,"Our surroundings; an elementary general science","Clement, Arthur G. Collister, Morton Christian, Thurston, E. L. (Ernest Lawton)",
-                "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science",
+                "The immediate aim of Our Surroundings is to place the pupil in tune with the common things about him, giving him an understanding and appreciation of, and an interest in, his environment."
+                        + "Our Surroundings draws upon many sciences to bring about this contact and understanding. With the help of these sciences it " +
+                        "opens the door through which the pupil sees the true importance of the familiar and common things about him. It does more. It fires the pupil's interest, " +
+                        "awakening the desire to go farther afield and to explore in more detail the territory of some particular science. It gives the preliminary view and contact that make possible " +
+                        "an intelligent choice of the sciences for more extensive and intensive study in later school years.",
                 "Science","https://archive.org/download/oursurroundingse00clemrich/oursurroundingse00clemrich.pdf",
                 "https://ia802605.us.archive.org/BookReader/BookReaderImages.php?zip=/4/items/oursurroundingse00clemrich/oursurroundingse00clemrich_jp2" +
                         ".zip&file=oursurroundingse00clemrich_jp2/oursurroundingse00clemrich_0001.jp2&scale=4&rotate=0");
