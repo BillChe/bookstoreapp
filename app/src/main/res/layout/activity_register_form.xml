@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.RegisterForm"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="3dp">
 
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username" />
+        android:text="Username"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/usernameET"
@@ -19,21 +22,36 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:maxLength="12" />
+        />
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="E-mail"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/emailET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" />
 
     <TextView
         android:id="@+id/passwordTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password" />
+        android:text="Password"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/passwordET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
-        android:maxLength="12"/>
+        android:inputType="textPassword" />
 
 
 
@@ -42,5 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/button_drawable"
         android:layout_marginTop="30dp"/>
 </LinearLayout>

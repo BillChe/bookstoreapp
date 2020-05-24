@@ -84,11 +84,11 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="Login"
-        android:textColor="@color/colorLightGrey"
+        android:textColor="@color/colorWhite"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="45dp"
-        android:background="#2626c4" />
+        android:background="@drawable/button_drawable" />
 
     <TextView
         android:id="@+id/registerHereTV"
@@ -97,19 +97,20 @@
         android:layout_marginBottom="10dp"
         android:textIsSelectable="false"
         android:text="Not registered? Click on register button to register "
-        android:textAlignment="center"
+        android:gravity="center_horizontal"
         android:textStyle="italic|bold"
         android:textColor="#2626c4"
         android:clickable="false"/>
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="80dp"
-        android:layout_height="32dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:text="Register"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:background="#d3d3d3"
+        android:background="@drawable/button_drawable"
+        android:backgroundTint="#d3d3d3"
         android:textColor="#000000"/>
 </LinearLayout>

@@ -19,8 +19,7 @@ import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
 public class RegisterForm extends Activity {
     private Button registerFormButton;
     private Context context;
-    private EditText usernameEditText;
-    private EditText passwordEditText;
+    private EditText usernameEditText,passwordEditText, emailEditText;
     boolean registered;
 
     @Override
@@ -31,6 +30,7 @@ public class RegisterForm extends Activity {
 
         usernameEditText = findViewById(R.id.usernameET);
         passwordEditText = findViewById(R.id.passwordET);
+        emailEditText = findViewById(R.id.emailET);
 
         context = this;
         registerFormButton = (Button) findViewById(R.id.registerFormButton);
