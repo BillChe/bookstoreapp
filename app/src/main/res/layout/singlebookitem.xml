@@ -116,9 +116,10 @@
         android:layout_weight="1"
         android:gravity="center">
         <ImageView
-            android:layout_width="205dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/singleBookImageView">
+            android:id="@+id/singleBookImageView"
+            android:layout_margin="3dp">
 
         </ImageView>
 
