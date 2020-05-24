@@ -182,17 +182,20 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent exitApp = new Intent(MainActivity.this,Login.class);
-        exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(exitApp);
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent exitApp = new Intent(MainActivity.this,Login.class);
-                startActivity(exitApp);
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(a);
                 break;
         }
         return true;

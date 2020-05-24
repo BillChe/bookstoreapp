@@ -17,9 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.vasos.bookstoreapp.R;
 
 import java.io.File;
@@ -35,11 +37,12 @@ public class SingleBookDescription extends Activity {
     private Button readButton;
     private Button backToAllBooksButton;
     private Button addToMyBooksButton;
-    public static String bookToReadFileTitle;
+    public String bookToReadFileTitle;
     private Toolbar actionBarToolbar;
     private Context context;
     private LinearLayout downloadProgresBar;
     private TextView bookTitleDescriptionTextView,bookDescriptionTextTextView;
+    private ImageView bookDescriptionImageView;
     private static boolean isAddedToBooks;
     private static String TestselectedBookUrl = "https://archive.org/download/draculabr00stokuoft/draculabr00stokuoft.pdf";
     private static String TestselectedBookName = "benfran.pdf";
@@ -50,18 +53,18 @@ public class SingleBookDescription extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_single_book_description);
         context = this;
+        setViews();
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("Title");
+        String description = intent.getStringExtra("Description");
+        String id = intent.getStringExtra("Id");
+        String imageUrl = intent.getStringExtra("ImageUrl");
 
-        bookToReadFileTitle = BookView.bookFileTitle;
-        downloadProgresBar = (LinearLayout) findViewById(R.id.downloadProgresBar);
-        readButton = (Button) findViewById(R.id.readButton);
-        backToAllBooksButton = (Button) findViewById(R.id.backToAllBooksButton);
-        addToMyBooksButton = (Button) findViewById(R.id.addToMyBooksButton);
-        actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar_description_view);
-        bookTitleDescriptionTextView = (TextView) findViewById(R.id.bookTitleDescriptionTextView);
-        bookDescriptionTextTextView = (TextView) findViewById(R.id.bookDescriptionTextTextView);
-
+        if(context!=null)
+        Glide.with(context).load(imageUrl).fitCenter().into(bookDescriptionImageView);
+        bookToReadFileTitle = title;
         bookTitleDescriptionTextView.setText(bookToReadFileTitle);
-        bookDescriptionTextTextView.setText("Description of : " + bookToReadFileTitle);
+        bookDescriptionTextTextView.setText(description);
 
         actionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +76,18 @@ public class SingleBookDescription extends Activity {
         });
 
 
+    }
+
+    private void setViews()
+    {
+        bookDescriptionImageView = (ImageView) findViewById(R.id.bookDescriptionImageView);
+        downloadProgresBar = (LinearLayout) findViewById(R.id.downloadProgresBar);
+        readButton = (Button) findViewById(R.id.readButton);
+        backToAllBooksButton = (Button) findViewById(R.id.backToAllBooksButton);
+        addToMyBooksButton = (Button) findViewById(R.id.addToMyBooksButton);
+        actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar_description_view);
+        bookTitleDescriptionTextView = (TextView) findViewById(R.id.bookTitleDescriptionTextView);
+        bookDescriptionTextTextView = (TextView) findViewById(R.id.bookDescriptionTextTextView);
     }
 
     @Override

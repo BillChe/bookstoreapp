@@ -2,6 +2,7 @@ package com.example.vasos.bookstoreapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,15 +59,9 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         viewHolder.bookISBNTV = (TextView) view.findViewById(R.id.bookISBNTV);
         viewHolder.viewBookButton = (Button) view.findViewById(R.id.viewBookButton);
         viewHolder.singleBookImageView = (ImageView) view.findViewById(R.id.singleBookImageView);
-        viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent viewBook = new Intent(context,SingleBookDescription.class);
-                context.startActivity(viewBook);
-            }
-        });
 
-        Book book = (Book) getItem(i);
+
+        final Book book = (Book) getItem(i);
         viewHolder.idTV.setText(String.valueOf(book.getBookId()));
         viewHolder.bookTitleTV.setText(book.getBookTitle()) ;
         viewHolder.bookCategoryTV.setText(book.getBookGenre());
@@ -74,7 +69,19 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         viewHolder.bookISBNTV.setText(book.getBookDescription());
         Glide.with(getContext()).load(book.getBookImageUrl()).fitCenter().into(viewHolder.singleBookImageView);
 
-
+        viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewBook = new Intent(context,SingleBookDescription.class);
+                Bundle extras = new Bundle();
+                extras.putString("Title",book.getBookTitle());
+                extras.putString("Description",book.getBookDescription());
+                extras.putString("Id", String.valueOf(book.getBookId()));
+                extras.putString("ImageUrl",book.getBookImageUrl());
+                viewBook.putExtras(extras);
+                context.startActivity(viewBook);
+            }
+        });
 
         return view;
     }
