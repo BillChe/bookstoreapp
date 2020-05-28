@@ -220,7 +220,6 @@ public class MainActivity extends Activity {
     }
 
 
-
     public Bitmap getBitmapFromURL(String src) {
         try {
             java.net.URL url = new java.net.URL(src);

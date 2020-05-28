@@ -11,7 +11,6 @@ public class Book
     private String bookImageUrl;
 
 
-
     public Book(int bookId, String bookTitle, String bookAuthor, String bookDescription, String bookGenre, String bookUrl, String bookImageUrl) {
         this.bookId = bookId;
         this.bookTitle = bookTitle;

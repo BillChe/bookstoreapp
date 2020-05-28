@@ -157,10 +157,6 @@ public class SingleBookDescription extends Activity {
         new DownloadFile().execute(selectedBookUrl, bookToReadFileTitle+".pdf");
     }
 
-
-
-
-
      class DownloadFile extends AsyncTask<String, Void, Void> {
 
         @Override
@@ -183,7 +179,6 @@ public class SingleBookDescription extends Activity {
             return null;
         }
     }
-
 
 
       class FileDownloader {

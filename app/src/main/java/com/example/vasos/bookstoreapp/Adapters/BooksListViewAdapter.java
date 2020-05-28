@@ -24,14 +24,12 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
     Context context;
     ArrayList<Book> books = new ArrayList<>();
 
-
     public BooksListViewAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Book> objects)
     {
         super(context, resource, objects);
         this.context = context;
         this.books = objects;
     }
-
 
     @Override
     public int getCount() {
@@ -89,14 +87,12 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
 
 
     private static class ViewHolder {
-
         TextView bookTitleTV;
         TextView bookAuthorTV;
         TextView bookCategoryTV;
         TextView bookISBNTV;
         TextView idTV;
         ImageView singleBookImageView;
-        private Button viewBookButton;
-
+        Button viewBookButton;
     }
 }

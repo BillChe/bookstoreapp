@@ -56,8 +56,6 @@ public class Login extends Activity {
         catch (Exception e)
         {}
 
-
-
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -67,8 +65,6 @@ public class Login extends Activity {
                 startActivity(loginIntent);
             }
         });
-
-
 
 
     }
@@ -139,17 +135,6 @@ public class Login extends Activity {
                 });
             }
         }
-
-      /*  if(appUser != null)
-        {
-            if(appUser.isIsUserLoggedIn())
-            {
-                Intent loginIntent = new Intent(Login.this,MainActivity.class);
-                loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                overridePendingTransition(0, 0);
-                startActivity(loginIntent);
-            }
-        }*/
 
     }
 

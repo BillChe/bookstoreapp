@@ -90,13 +90,7 @@ public class BookView extends Activity {
     protected void onResume() {
         super.onResume();
 
-
     }
-
-   public void download(View v, String selectedBookUrl)
-   {
-      // new DownloadFile().execute(selectedBookUrl, TestselectedBookName);
-   }
 
     public void view(View v)
     {

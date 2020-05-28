@@ -36,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Username"
         android:textStyle="bold"
         android:textIsSelectable="false"
@@ -46,20 +45,19 @@
         android:id="@+id/usernameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:hint="Enter Username"
         android:backgroundTint="#2626c4"
         android:textIsSelectable="false"
         android:textStyle="italic"
         android:textCursorDrawable="@color/colorLightGrey"
-        android:ems="10"
-        android:maxLength="12"/>
+        />
 
     <TextView
         android:id="@+id/passwordTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Password"
         android:textStyle="bold"
         android:textIsSelectable="false"
@@ -69,14 +67,13 @@
         android:id="@+id/passwordET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:inputType="textPassword"
         android:textStyle="italic"
         android:hint="Enter Password"
         android:backgroundTint="#2626c4"
         android:textCursorDrawable="@color/colorLightGrey"
         android:textIsSelectable="false"
-        android:maxLength="12"/>
+      />
 
     <Button
         android:id="@+id/loginButton"

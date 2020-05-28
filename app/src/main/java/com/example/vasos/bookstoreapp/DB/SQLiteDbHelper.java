@@ -11,7 +11,6 @@ import com.example.vasos.bookstoreapp.Models.Book;
 
 public class SQLiteDbHelper extends SQLiteOpenHelper {
 
-
     private static final String DATABASE_NAME = "bookstore.db";
     private static final String USERS_TABLE_NAME = "userstable";
     private static final String BOOKS_TABLE_NAME = "boookstable";
