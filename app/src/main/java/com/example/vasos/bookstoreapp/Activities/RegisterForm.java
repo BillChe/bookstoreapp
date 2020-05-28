@@ -120,7 +120,7 @@ public class RegisterForm extends Activity {
         String tag_string_req = "req_register";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REGISTER, new Response.Listener<String>() {
+                AppConfig.URL_REGISTER+"?email="+email+"&password="+password+"&name="+username, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
