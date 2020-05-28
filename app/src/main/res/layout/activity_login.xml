@@ -19,10 +19,9 @@
         android:clickable="false"
         android:textStyle="bold"
         android:textColor="#d3d3d3"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="20pt"
         android:background="#2626c4"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"/>
 
 
@@ -96,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:textIsSelectable="false"
-        android:text="Not registered? Click on register button to register "
+        android:text="Not registered? Press on register button to register"
         android:gravity="center_horizontal"
         android:textStyle="italic|bold"
         android:textColor="#2626c4"

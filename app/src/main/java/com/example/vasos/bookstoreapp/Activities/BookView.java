@@ -35,7 +35,6 @@ public class BookView extends Activity {
     private  int lastPage = -1;
     private ImageView closeBookView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +77,10 @@ public class BookView extends Activity {
 
     private void setListeners()
     {
+        // close button pressed
         closeBookView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // back button pressed
               finish();
             }
         });
