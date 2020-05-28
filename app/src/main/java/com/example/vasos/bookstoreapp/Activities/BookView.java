@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class BookView extends Activity {
     private String TestselectedBookName = "";
     private ProgressBar progressBar;
     private  int lastPage = -1;
+    private ImageView closeBookView;
 
 
     @Override
@@ -53,9 +55,8 @@ public class BookView extends Activity {
         {
             lastOpenedBookName = TestselectedBookName;
         }
-
-        pdfView = (PDFView) findViewById(R.id.pdfView);
-        progressBar = (ProgressBar) findViewById(R.id.progressBarPdf);
+        setViews();
+        setListeners();
 
         pdfView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.VISIBLE);
@@ -66,7 +67,24 @@ public class BookView extends Activity {
 
         //download(pdfView,TestselectedBookUrl);
         view(pdfView);
+    }
 
+    private void setViews()
+    {
+        closeBookView = (ImageView) findViewById(R.id.closeBookView);
+        pdfView = (PDFView) findViewById(R.id.pdfView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarPdf);
+    }
+
+    private void setListeners()
+    {
+        closeBookView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+              finish();
+            }
+        });
     }
 
     @Override

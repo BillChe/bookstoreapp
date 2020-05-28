@@ -15,8 +15,20 @@
     android:layout_width="300dp"
     android:layout_height="300dp"
     android:layout_gravity="center" />
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/closeBookView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/ic_close"/>
+    </FrameLayout>
+
 </LinearLayout>
