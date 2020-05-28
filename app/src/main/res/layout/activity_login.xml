@@ -45,12 +45,12 @@
         android:id="@+id/usernameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:hint="Enter Username"
         android:backgroundTint="#2626c4"
         android:textIsSelectable="false"
         android:textStyle="italic"
         android:textCursorDrawable="@color/colorLightGrey"
+        android:inputType="textPersonName"
         />
 
     <TextView
