@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 
 public class AllBooks extends Activity {
     private TextView idTextView;
-
-    private Button logoutButton;
     private Toolbar actionBarToolbar;
     private ArrayList<Book> allBooksAvailable = new ArrayList<>();
     private int booksBought;
@@ -39,7 +36,7 @@ public class AllBooks extends Activity {
         idTextView = (TextView) findViewById(R.id.idTextView);
         idTextView.setPaintFlags(idTextView.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
 
-        logoutButton  = (Button) findViewById(R.id.logoutButton);
+
         booksListView = (ListView) findViewById(R.id.booksListView);
         allBooksActivityTitleTextView = (TextView) findViewById(R.id.allBooksActivityTitleTextView);
 
@@ -77,15 +74,6 @@ public class AllBooks extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent exitApp = new Intent(AllBooks.this,Login.class);
-                exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(exitApp);
-            }
-        });
 
     }
 

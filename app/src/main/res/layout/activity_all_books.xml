@@ -37,31 +37,7 @@
                 android:layout_marginRight="30dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
 
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:background="@android:drawable/ic_lock_power_off" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="1dp"
-                android:layout_marginBottom="10dp"
-                android:text="Logout"
-                android:textColor="@color/colorred"
-                android:textSize="13dp"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

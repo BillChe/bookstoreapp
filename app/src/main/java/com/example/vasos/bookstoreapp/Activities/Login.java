@@ -25,6 +25,7 @@ import com.example.vasos.bookstoreapp.DB.SQLiteDbHelper;
 import com.example.vasos.bookstoreapp.Helpers.AppConfig;
 import com.example.vasos.bookstoreapp.Helpers.AppController;
 import com.example.vasos.bookstoreapp.Helpers.SessionManager;
+import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.R;
 
 import org.json.JSONException;
@@ -95,86 +96,46 @@ public class Login extends Activity {
             }
         });
 
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                usernameStr = username.getText().toString().trim();
+                passwordStr = password.getText().toString().trim();
+                if(!usernameStr.isEmpty() && !passwordStr.isEmpty())
+                {
+                    checkLogin(usernameStr, passwordStr);
+                }
+                else
+                {
+                    new AlertDialog.Builder(context)
+                            .setTitle("Missing Field")
+                            .setMessage("Please enter your username and password")
+                            .setCancelable(false)
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    dialog.dismiss();
+                                }
+                            })
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
 
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(appUser != null)
-        {
-            if(appUser.isIsUserLoggedIn())
-            {
-
-                loginBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        usernameStr = username.getText().toString().trim();
-                        passwordStr = password.getText().toString().trim();
-                        if(!usernameStr.equals("") && !passwordStr.equals(""))
-                        {
-                            if((usernameStr.equals(appUser.getAppUserName())) && (passwordStr.equals(appUser.getAppUserPassword())))
-                            {
-                                intentToMain();
-                            }
-                            else
-                            {
-                                new AlertDialog.Builder(context)
-                                        .setTitle("Missing Field")
-                                        .setMessage("Please enter your username and password")
-                                        .setCancelable(false)
-                                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                                        // The dialog is automatically dismissed when a dialog button is clicked.
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                // Continue with delete operation
-                                                dialog.dismiss();
-                                            }
-                                        })
-                                        // A null listener allows the button to dismiss the dialog and take no further action.
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            }
-
-                        }
-                        else
-                        {
-                            new AlertDialog.Builder(context)
-                                    .setTitle("Missing Field")
-                                    .setMessage("Please enter your username and password")
-                                    .setCancelable(false)
-                                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                                    // The dialog is automatically dismissed when a dialog button is clicked.
-                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // Continue with delete operation
-                                            dialog.dismiss();
-                                        }
-                                    })
-                                    // A null listener allows the button to dismiss the dialog and take no further action.
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                        }
-
-                    }
-                });
-            }
-            else
-            {
-                // login user
-                // Prompt user to enter credentials
-
-                checkLogin(usernameStr, passwordStr);
-            }
-        }
-
     }
 
     public void intentToMain()
     {
         Intent loginIntent = new Intent(Login.this,MainActivity.class);
-
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
     }
@@ -187,7 +148,7 @@ public class Login extends Activity {
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_LOGIN+"?email="+email+"&password="+password, new Response.Listener<String>() {
+                AppConfig.URL_LOGIN, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -210,6 +171,8 @@ public class Login extends Activity {
                         String email = user.getString("email");
                         String username = user.getString("username");
                         // Inserting row in users table
+                        int id = Integer.parseInt(uid);
+                        appUser = new AppUser(id,username,password,0, true);
                         db.insertUser(appUser);
 
                         // Launch main activity
@@ -241,7 +204,7 @@ public class Login extends Activity {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("username", email);
+                params.put("email", email);
                 params.put("password", password);
 
                 return params;

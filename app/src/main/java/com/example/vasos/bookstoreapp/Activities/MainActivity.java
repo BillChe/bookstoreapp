@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vasos.bookstoreapp.Helpers.DownloadImageTask;
+import com.example.vasos.bookstoreapp.Helpers.SessionManager;
 import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
     private TextView numberOfBooksTextView;
     public static int appUserId = 0;
     public static AppUser appUser ;
+    private SessionManager session;
 
     public static ArrayList<Book> allBooks = new ArrayList<>();
     @Override
@@ -144,6 +146,9 @@ public class MainActivity extends Activity {
                 Intent exitApp = new Intent(MainActivity.this,Login.class);
                 exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(exitApp);
+                session = new SessionManager(getApplicationContext());
+                session.setLogin(false);
+
             }
         });
 

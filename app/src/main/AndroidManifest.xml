@@ -3,9 +3,10 @@
     package="com.example.vasos.bookstoreapp">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.example.vasos.bookstoreapp.Helpers.AppController"
+        android:name=".Helpers.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/fullofbookslaunchericon"
         android:label="@string/app_name"

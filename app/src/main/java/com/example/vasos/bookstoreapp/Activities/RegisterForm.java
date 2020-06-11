@@ -37,7 +37,7 @@ public class RegisterForm extends Activity {
     private Button registerFormButton;
     private Context context;
     private EditText usernameEditText,passwordEditText, emailEditText;
-    boolean registered;
+    boolean registered = false;
     private SessionManager session;
     private SQLiteDbHelper db;
 
@@ -55,6 +55,7 @@ public class RegisterForm extends Activity {
 
         context = this;
         registerFormButton = (Button) findViewById(R.id.registerFormButton);
+        db = new SQLiteDbHelper(getApplicationContext());
     }
 
     @Override
@@ -64,31 +65,29 @@ public class RegisterForm extends Activity {
         registerFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((usernameEditText.getText()!=null) && (passwordEditText.getText()!=null))
+                if((usernameEditText.getText().length()>=6) && (passwordEditText.getText().length()>=6))
                 {
                     String username = usernameEditText.getText().toString().trim();
                     String password = passwordEditText.getText().toString().trim();
                     String email = emailEditText.getText().toString().trim();
 
-                    registerUser(username, password, email);
-
-                    appUser = new AppUser(0,usernameEditText.getText().toString(),passwordEditText.getText().toString(),0, true);
-
-                    SQLiteDbHelper sqLiteDbHelper= new SQLiteDbHelper(context);
-                    sqLiteDbHelper.insertUser(appUser);
+                    registerUser(username, password, email, username);
 
 
+
+
+                }
+                else
+                {
                     new AlertDialog.Builder(context)
-                            .setTitle("Completed entry")
-                            .setMessage("You Are Now Registered")
+                            .setTitle("Not Completed")
+                            .setMessage("Check your credentials")
                             // Specifying a listener allows you to take an action before dismissing the dialog.
                             // The dialog is automatically dismissed when a dialog button is clicked.
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Continue with delete operation
                                     dialog.dismiss();
-                                    Intent loginIntent = new Intent(RegisterForm.this,Login.class);
-                                    startActivity(loginIntent);
                                 }
                             })
                             // A null listener allows the button to dismiss the dialog and take no further action.
@@ -96,7 +95,7 @@ public class RegisterForm extends Activity {
                             .show();
                 }
 
-                registered = true;
+
 
             }
 
@@ -115,12 +114,12 @@ public class RegisterForm extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String username, final String password, final String email) {
+    private void registerUser(final String username, final String password, final String email, final String name) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_REGISTER+"?email="+email+"&password="+password+"&name="+username, new Response.Listener<String>() {
+                AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -138,11 +137,34 @@ public class RegisterForm extends Activity {
                         String username = user.getString("username");
                         String uid = user.getString("id");
                         String email = user.getString("email");
+                        String password = user.getString("password");
 
+                        appUser = new AppUser(0,username,password,0, true);
                         // Inserting row in users table
                         db.insertUser(appUser);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
+                        SQLiteDbHelper sqLiteDbHelper= new SQLiteDbHelper(context);
+                        sqLiteDbHelper.insertUser(appUser);
+
+                        registered = true;
+                        new AlertDialog.Builder(context)
+                                .setTitle("Completed entry")
+                                .setMessage("You Are Now Registered")
+                                // Specifying a listener allows you to take an action before dismissing the dialog.
+                                // The dialog is automatically dismissed when a dialog button is clicked.
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Continue with delete operation
+                                        dialog.dismiss();
+                                        Intent loginIntent = new Intent(RegisterForm.this,Login.class);
+                                        startActivity(loginIntent);
+                                    }
+                                })
+                                // A null listener allows the button to dismiss the dialog and take no further action.
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
 
                         // Launch login activity
 
@@ -175,8 +197,9 @@ public class RegisterForm extends Activity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
-                params.put("username", username);
                 params.put("password", password);
+                params.put("name", name);
+                params.put("username", username);
 
                 return params;
             }
