@@ -139,14 +139,14 @@ public class MainActivity extends Activity {
         super.onResume();
 
         new DownloadImageTask(booksImageView).execute(booksImageUrl);
-
+        session = new SessionManager(getApplicationContext());
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent exitApp = new Intent(MainActivity.this,Login.class);
                 exitApp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(exitApp);
-                session = new SessionManager(getApplicationContext());
+
                 session.setLogin(false);
 
             }
@@ -200,6 +200,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        session.setLogin(true);
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -210,6 +211,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                session.setLogin(true);
                 Intent a = new Intent(Intent.ACTION_MAIN);
                 a.addCategory(Intent.CATEGORY_HOME);
                 a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
