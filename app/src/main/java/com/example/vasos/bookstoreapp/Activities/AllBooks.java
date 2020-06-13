@@ -17,10 +17,12 @@ import com.example.vasos.bookstoreapp.R;
 
 import java.util.ArrayList;
 
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
+
 public class AllBooks extends Activity {
     private TextView idTextView;
     private Toolbar actionBarToolbar;
-    private ArrayList<Book> allBooksAvailable = new ArrayList<>();
+    private ArrayList<Book> allBooksAvailable,usersBoughtBooks = new ArrayList<>();
     private int booksBought;
     private ListView booksListView;
     private Context context;
@@ -35,22 +37,8 @@ public class AllBooks extends Activity {
         context = this;
         idTextView = (TextView) findViewById(R.id.idTextView);
         idTextView.setPaintFlags(idTextView.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
-
-
         booksListView = (ListView) findViewById(R.id.booksListView);
         allBooksActivityTitleTextView = (TextView) findViewById(R.id.allBooksActivityTitleTextView);
-
-        try
-        {
-            if(getIntent().getExtras().getBoolean("MyBooksIntent"))
-            {
-                allBooksActivityTitleTextView.setText("my Books");
-            }
-        }
-        catch (Exception e){
-
-        }
-
         actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
 
         actionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,12 +50,23 @@ public class AllBooks extends Activity {
             }
         });
 
-
         allBooksAvailable = MainActivity.getAllBooks();
         BooksListViewAdapter booksListViewAdapter = new BooksListViewAdapter(this,0,allBooksAvailable);
 
         booksListView.setAdapter(booksListViewAdapter);
         booksListViewAdapter.notifyDataSetChanged();
+
+        if(getIntent().getExtras()!=null)
+        {
+            if(getIntent().getExtras().getBoolean("MyBooksIntent"))
+            {
+                allBooksActivityTitleTextView.setText("my Books");
+                booksListViewAdapter = new BooksListViewAdapter(this,0,appUser.getUserBooksBought());
+
+                booksListView.setAdapter(booksListViewAdapter);
+                booksListViewAdapter.notifyDataSetChanged();
+            }
+        }
 
     }
 

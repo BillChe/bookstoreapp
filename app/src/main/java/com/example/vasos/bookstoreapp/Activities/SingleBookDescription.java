@@ -41,7 +41,7 @@ public class SingleBookDescription extends Activity {
     private Toolbar actionBarToolbar;
     private Context context;
     private LinearLayout downloadProgresBar;
-    private TextView bookTitleDescriptionTextView,bookDescriptionTextTextView;
+    private TextView bookTitleDescriptionTextView,bookDescriptionTextTextView,bookpriceTextView;
     private ImageView bookDescriptionImageView;
     private static boolean isAddedToBooks;
     private String selectedBookUrl = "";
@@ -66,6 +66,7 @@ public class SingleBookDescription extends Activity {
         bookToReadFileTitle = title;
         bookTitleDescriptionTextView.setText(bookToReadFileTitle);
         bookDescriptionTextTextView.setText(description);
+        bookpriceTextView.setText(intent.getStringExtra("BookPrice") + " €");
 
         actionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +90,7 @@ public class SingleBookDescription extends Activity {
         actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar_description_view);
         bookTitleDescriptionTextView = (TextView) findViewById(R.id.bookTitleDescriptionTextView);
         bookDescriptionTextTextView = (TextView) findViewById(R.id.bookDescriptionTextTextView);
+        bookpriceTextView = (TextView) findViewById(R.id.bookpriceTextView);
     }
 
     @Override

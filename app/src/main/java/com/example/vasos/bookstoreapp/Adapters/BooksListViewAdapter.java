@@ -41,6 +41,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         return i;
     }
 
+    @NonNull
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder;
@@ -54,35 +55,50 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         viewHolder.bookTitleTV = (TextView) view.findViewById(R.id.booktitleTV);
         viewHolder.bookCategoryTV = (TextView) view.findViewById(R.id.bookCategoryTV);
         viewHolder.bookAuthorTV = (TextView) view.findViewById(R.id.bookAuthorTV);
-        viewHolder.bookISBNTV = (TextView) view.findViewById(R.id.bookISBNTV);
+        viewHolder.bookpriceTV = (TextView) view.findViewById(R.id.bookpriceTV);
         viewHolder.viewBookButton = (Button) view.findViewById(R.id.viewBookButton);
         viewHolder.singleBookImageView = (ImageView) view.findViewById(R.id.singleBookImageView);
 
 
         final Book book = (Book) getItem(i);
+        Glide.with(getContext()).load(book.getBookImageUrl()).fitCenter().into(viewHolder.singleBookImageView);
         viewHolder.idTV.setText(String.valueOf(book.getBookId()));
         viewHolder.bookTitleTV.setText(book.getBookTitle()) ;
         viewHolder.bookCategoryTV.setText(book.getBookGenre());
         viewHolder.bookAuthorTV.setText(book.getBookAuthor());
-        viewHolder.bookISBNTV.setText(book.getBookDescription());
-        Glide.with(getContext()).load(book.getBookImageUrl()).fitCenter().into(viewHolder.singleBookImageView);
+        viewHolder.bookpriceTV.setText(String.valueOf(book.getBookPrice()+" €"));
+
 
         viewHolder.viewBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewBook = new Intent(context,SingleBookDescription.class);
-                Bundle extras = new Bundle();
-                extras.putString("Title",book.getBookTitle());
-                extras.putString("Description",book.getBookDescription());
-                extras.putString("Id", String.valueOf(book.getBookId()));
-                extras.putString("ImageUrl",book.getBookImageUrl());
-                extras.putString("BookUrl",book.getBookUrl());
-                viewBook.putExtras(extras);
-                context.startActivity(viewBook);
+                singleBookDescriptionIntent(book);
+
+            }
+        });
+        viewHolder.singleBookImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                singleBookDescriptionIntent(book);
             }
         });
 
         return view;
+    }
+
+    private void singleBookDescriptionIntent(Book book)
+    {
+        Intent viewBook = new Intent(context,SingleBookDescription.class);
+        Bundle extras = new Bundle();
+        extras.putString("Title",book.getBookTitle());
+        extras.putString("Description",book.getBookDescription());
+        extras.putString("Id", String.valueOf(book.getBookId()));
+        extras.putString("ImageUrl",book.getBookImageUrl());
+        extras.putString("BookUrl",book.getBookUrl());
+        extras.putString("BookPrice",String.valueOf(book.getBookPrice()));
+        viewBook.putExtras(extras);
+        context.startActivity(viewBook);
     }
 
 
@@ -90,7 +106,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         TextView bookTitleTV;
         TextView bookAuthorTV;
         TextView bookCategoryTV;
-        TextView bookISBNTV;
+        TextView bookpriceTV;
         TextView idTV;
         ImageView singleBookImageView;
         Button viewBookButton;

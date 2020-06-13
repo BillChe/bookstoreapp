@@ -9,6 +9,7 @@ public class Book
     private String bookGenre;
     private String bookUrl;
     private String bookImageUrl;
+    private double bookPrice;
 
 
     public Book(int bookId, String bookTitle, String bookAuthor, String bookDescription, String bookGenre, String bookUrl, String bookImageUrl) {
@@ -77,5 +78,15 @@ public class Book
     public void setBookImageUrl(String bookImageUrl)
     {
         this.bookImageUrl = bookImageUrl;
+    }
+
+    public double getBookPrice()
+    {
+        return bookPrice;
+    }
+
+    public void setBookPrice(double bookPrice)
+    {
+        this.bookPrice = bookPrice;
     }
 }

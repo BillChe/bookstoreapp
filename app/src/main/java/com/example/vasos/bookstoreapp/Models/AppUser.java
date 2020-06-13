@@ -1,5 +1,7 @@
 package com.example.vasos.bookstoreapp.Models;
 
+import java.util.ArrayList;
+
 public class AppUser
 {
     private int appUserId;
@@ -7,6 +9,7 @@ public class AppUser
     private String appUserPassword;
     public int appUserNoOfBooks;
     public boolean isUserLoggedIn;
+    private ArrayList<Book> userBooksBought;
 
     public AppUser(int appUserId, String appUserName, String appUserPassword, int appUserNoOfBooks, boolean isUserLoggedIn ) {
         this.appUserId = appUserId;
@@ -48,11 +51,23 @@ public class AppUser
         this.appUserPassword = appUserPassword;
     }
 
-    public boolean isIsUserLoggedIn() {
+    public boolean isUserLoggedIn()
+    {
         return isUserLoggedIn;
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
-        isUserLoggedIn = isUserLoggedIn;
+    public void setUserLoggedIn(boolean userLoggedIn)
+    {
+        isUserLoggedIn = userLoggedIn;
+    }
+
+    public ArrayList<Book> getUserBooksBought()
+    {
+        return userBooksBought;
+    }
+
+    public void setUserBooksBought(ArrayList<Book> userBooksBought)
+    {
+        this.userBooksBought = userBooksBought;
     }
 }

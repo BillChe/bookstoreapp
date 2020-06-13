@@ -112,7 +112,7 @@ public class BookView extends Activity {
                 .onPageChange(new OnPageChangeListener() {
                     @Override
                     public void onPageChanged(int page, int pageCount) {
-                            Toast.makeText(getBaseContext(), String.valueOf(page + 1), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getBaseContext(), String.valueOf(page + 1), Toast.LENGTH_SHORT).show();
                     }
                 })
                 // allows to draw something on the current page, usually visible in the middle of the screen

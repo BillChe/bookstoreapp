@@ -44,12 +44,14 @@ public class Login extends Activity {
     private TextView registerHereText;
     private EditText username, password;
     private String usernameStr,passwordStr = "";
+    private int id = -1;
     private LinearLayout linearLayout;
     private Context context;
     private ImageView booksImageView;
     private static String booksImageUrl = "https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     private SessionManager session;
     private SQLiteDbHelper db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +132,10 @@ public class Login extends Activity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
+            appUser = new AppUser(id,session.getUsername(),passwordStr,0, true);
+            appUser.setAppUserName(session.getUsername());
+            appUser.setAppUserId(Integer.parseInt(session.getUserId()));
+            db.insertUser(appUser);
             intentToMain();
         }
     }
@@ -168,13 +174,14 @@ public class Login extends Activity {
                         JSONObject user = jObj.getJSONObject("user_info");
                         // Now store the user in SQLite
                         String uid = user.getString("id");
-                        session.setUserInfo(uid);
                         String email = user.getString("email");
                         String username = user.getString("username");
+                        session.setUserInfo(uid,username);
                         // Inserting row in users table
-                        int id = Integer.parseInt(uid);
+                        id = Integer.parseInt(uid);
                         appUser = new AppUser(id,username,password,0, true);
                         db.insertUser(appUser);
+
 
                         // Launch main activity
                        intentToMain();
