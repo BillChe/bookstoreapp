@@ -68,6 +68,7 @@ public class SingleBookDescription extends Activity {
         bookDescriptionTextTextView.setText(description);
         bookpriceTextView.setText(intent.getStringExtra("BookPrice") + " €");
 
+
         actionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +127,12 @@ public class SingleBookDescription extends Activity {
                     }
                     else
                 {
-                    download(selectedBookUrl);
+                    Intent buyBook = new Intent(SingleBookDescription.this,BuyBookActivity.class);
+                    buyBook.putExtra("Title",bookToReadFileTitle);
+                    buyBook.putExtra("Url",selectedBookUrl);
+                    startActivity(buyBook);
+
+                   // download(selectedBookUrl);
 
                 }
                 }
@@ -230,6 +236,8 @@ public class SingleBookDescription extends Activity {
 
          private  void displayFileDownloaded() {
              downloadProgresBar.setVisibility(View.GONE);
+             addToMyBooksButton.setVisibility(View.GONE);//!!!!!!!!!!!!!!!!!!!!!
+             readButton.setVisibility(View.VISIBLE);//!!!!!!!!!!!!!!!!!!!!!
              AlertDialog.Builder builder = new AlertDialog.Builder(context);
              builder.setMessage("Successfully added to your books!")
                      .setCancelable(false)
@@ -237,8 +245,6 @@ public class SingleBookDescription extends Activity {
                          public void onClick(DialogInterface dialog, int id) {
                              //do things
                              dialog.dismiss();
-                             addToMyBooksButton.setVisibility(View.INVISIBLE);//!!!!!!!!!!!!!!!!!!!!!
-                             readButton.setVisibility(View.VISIBLE);//!!!!!!!!!!!!!!!!!!!!!
                          }
                      });
              AlertDialog alert = builder.create();

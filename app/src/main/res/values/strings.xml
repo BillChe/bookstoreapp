@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BookstoreApp</string>
+    <string name="payDescription">Please enter your card details below to purchase your book. A purchase for 10.00 EUR will appear in your bank statement under the name BookstoreApp</string>
 </resources>

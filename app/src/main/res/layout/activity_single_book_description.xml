@@ -128,7 +128,16 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite"
                />
-
+            <Button
+                android:id="@+id/readButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Read"
+                android:textAllCaps="false"
+                android:background="@drawable/button_drawable"
+                android:visibility="gone"
+                android:layout_margin="3dp"
+                android:textColor="@color/colorWhite"/>
             <Button
                 android:id="@+id/backToAllBooksButton"
                 android:layout_width="match_parent"
@@ -140,16 +149,7 @@
                 android:layout_margin="3dp"
                 android:textAllCaps="false"/>
 
-            <Button
-                android:id="@+id/readButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Read"
-                android:textAllCaps="false"
-                android:background="@drawable/button_drawable"
-                android:visibility="visible"
-                android:layout_margin="3dp"
-                android:textColor="@color/colorWhite"/>
+
         </LinearLayout>
     </ScrollView>
 
