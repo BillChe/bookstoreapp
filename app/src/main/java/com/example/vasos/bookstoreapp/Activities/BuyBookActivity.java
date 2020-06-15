@@ -8,11 +8,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.vasos.bookstoreapp.R;
@@ -31,6 +36,9 @@ import java.net.URL;
 public class BuyBookActivity extends Activity {
     ImageView bookPayImageView2;
     Button submitButton;
+    EditText cardNumberEditText,c2cEditText;
+    TextView cardNumberSumTextView;
+    Spinner cardMonthSpinner, cardYearSpinner;
     private LinearLayout downloadProgresBar;
     String bookUrl,bookToReadFileTitle = "";
     private Context context;
@@ -55,7 +63,12 @@ public class BuyBookActivity extends Activity {
     private void setViews()
     {
         downloadProgresBar = (LinearLayout)  findViewById(R.id.downloadProgresBar);
+        cardNumberEditText = (EditText)  findViewById(R.id.cardNumberEditText);
+        c2cEditText = (EditText)  findViewById(R.id.c2cEditText);
+        cardNumberSumTextView = (TextView)  findViewById(R.id.cardNumberSumTextView);
         bookPayImageView2 = (ImageView) findViewById(R.id.bookPayImageView2);
+        cardMonthSpinner = (Spinner) findViewById(R.id.cardMonthSpinner);
+        cardYearSpinner = (Spinner) findViewById(R.id.cardYearSpinner);
         try
         {
             Glide.with(getApplicationContext()).load("https://img.pngio.com/credit-card-icons-png-download-visa-mastercard-discover-logo-credit-card-logos-png-840_213.png").fitCenter().into(bookPayImageView2);
@@ -74,9 +87,69 @@ public class BuyBookActivity extends Activity {
             @Override
             public void onClick(View view)
             {
-                download(bookUrl);
+                String s = cardNumberEditText.getText().toString();
+                String s2 = c2cEditText.getText().toString();
+
+                if(!s.isEmpty()&&s.length()==16&&!s2.isEmpty()&&s2.length()==3)
+                {
+                    download(bookUrl);
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Please fill your credit card details")
+                            .setCancelable(true)
+                            .setTitle("Invalid Card Details")
+                            .setIcon(getResources().getDrawable(android.R.drawable.ic_dialog_info))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //do things
+                                    dialog.dismiss();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+
             }
         });
+
+        cardNumberEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent)
+            {
+                String s = cardNumberEditText.getText().toString();
+
+                if(!s.isEmpty()&&s.length()>=0)
+                {
+                    cardNumberSumTextView.setText(String.valueOf(s.length()));
+                }
+                else
+                {
+                    cardNumberSumTextView.setText("0");
+                }
+
+                return false;
+            }
+        });
+
+        String[] arraySpinner = new String[] {
+                "1", "2", "3", "4", "5", "6", "7","8", "9","10", "11", "12"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cardMonthSpinner.setAdapter(adapter);
+
+
+        String[] arrayYearsSpinner = new String[] {
+                "20", "21", "22", "23", "24", "25", "26"
+        };
+
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayYearsSpinner);
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cardYearSpinner.setAdapter(adapterYear);
+
     }
 
     public void download(String selectedBookUrl)
@@ -155,9 +228,10 @@ public class BuyBookActivity extends Activity {
         private  void displayFileDownloaded() {
             downloadProgresBar.setVisibility(View.GONE);
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Successfully added to your books!")
+            builder.setTitle("Successfully saved to your books!")
+                    .setMessage("Your book is in \"YourBooks\" folder")
                     .setCancelable(false)
-                    .setIcon(android.R.drawable.stat_sys_download_done)
+                    .setIcon(getResources().getDrawable(android.R.drawable.ic_menu_save))
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //do things

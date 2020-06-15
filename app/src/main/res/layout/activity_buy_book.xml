@@ -29,6 +29,7 @@
 
         </TextView>
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,8 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
 
 
 
@@ -74,6 +73,7 @@
 
 
         </LinearLayout>
+
     <TextView
         android:id="@+id/bookBuyDescriptionTextView"
         android:layout_width="match_parent"
@@ -90,75 +90,110 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bookPayImageView2">
+        android:id="@+id/bookPayImageView2"
+        android:layout_marginBottom="10dp">
 
     </ImageView>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Card Number "
-
-        android:textStyle="bold"
-        android:layout_marginRight="3dp"/>
-
-    <EditText
-        android:id="@+id/cardNumberEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.EditText"
-        android:background="@drawable/edit_texts_pay"
-        android:text=""
-        android:textStyle="bold"
-        android:layout_weight="1"/>
+        android:orientation="horizontal"
+        android:layout_weight="1.4">
 
-    <TextView
-        android:background="@drawable/edit_texts_pay"
-        android:id="@+id/cardNumberSumTextView"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card Number "
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+           />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:text="0"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"/>
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/cardNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.EditText"
+            android:background="@drawable/edit_texts_pay"
+            android:inputType="number"
+            android:text=""
+            android:textStyle="bold"
+            android:padding="1dp"
+            android:layout_weight="1"
+            android:maxLength="16"/>
+
+        <TextView
+            android:textSize= "18sp"
+            android:background="@drawable/edit_texts_pay"
+            android:id="@+id/cardNumberSumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="3dp"
+            android:textStyle="bold"
+            android:padding="1dp"
+            />
+    </LinearLayout>
+
 </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="3dp">
+        android:layout_marginBottom="5dp">
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Expiry Date (Month / Year) "
-            android:textStyle="bold"
-            android:layout_weight="2"
-            android:layout_marginRight="3dp"/>
+            android:orientation="horizontal"
+            android:layout_weight="1.1">
 
-        <Spinner
-            android:id="@+id/cardMonthSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00"
-            android:layout_weight="2"
-            />
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expiry Date (Month / Year) "
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/cardYearSpinner"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="00"
-            android:layout_weight="2"/>
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Spinner
+                android:id="@+id/cardMonthSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:layout_weight="2"
+                />
+
+            <Spinner
+                android:id="@+id/cardYearSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -166,45 +201,65 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CVV2/C2C "
-            android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            android:layout_marginRight="3dp"/>
+            android:orientation="horizontal"
+            android:layout_weight="1.4">
 
-        <EditText
-            android:id="@+id/c2cEditText"
-            android:layout_width="wrap_content"
-            android:minWidth="60dp"
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CVV2/C2C "
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.EditText"
-            android:background="@drawable/edit_texts_pay"
-            android:text="525"
-            android:textStyle="bold"
-            />
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/c2cEditText"
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:minWidth="60dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.EditText"
+                android:background="@drawable/edit_texts_pay"
+                android:text=""
+                android:padding="1dp"
+                android:textStyle="bold"
+                android:maxLength="3"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
     <Button
         android:id="@+id/submitButton"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:text="SUBMIT"
         android:textColor="@color/colorWhite"
-        android:background="@color/colorgreen"
-        >
-
+        android:background="@drawable/button_drawable"
+        android:backgroundTint="@color/colorgreen">
     </Button>
+
 
 
 
     </LinearLayout>
 
+
     </ScrollView>
+
 
 </LinearLayout>

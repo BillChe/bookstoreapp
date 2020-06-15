@@ -1,6 +1,7 @@
 package com.example.vasos.bookstoreapp.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vasos.bookstoreapp.Helpers.DownloadImageTask;
+import com.bumptech.glide.Glide;
 import com.example.vasos.bookstoreapp.Helpers.SessionManager;
 import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.Models.Book;
@@ -34,13 +35,14 @@ public class MainActivity extends Activity {
     private ImageView booksImageView;
     public static String bookToReadFileTitle;
     private Bitmap bmp;
-    public static String booksImageUrl = "https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+    public static String booksImageUrl = "https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg";
     private TextView numberOfBooksTextView,welcomeTextView;
     public static int appUserId = 0;
     public static AppUser appUser ;
     private SessionManager session;
     private ArrayList<Book> myBooks = new ArrayList<>();
     public static ArrayList<Book> allBooks = new ArrayList<>();
+    private Context context ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,8 +188,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        new DownloadImageTask(booksImageView).execute(booksImageUrl);
+        context = this;
+        //new DownloadImageTask(booksImageView).execute(booksImageUrl);
+        Glide.with(context).load(booksImageUrl).into(booksImageView);
         session = new SessionManager(getApplicationContext());
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
