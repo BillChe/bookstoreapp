@@ -41,7 +41,7 @@
             android:layout_gravity="right"
             android:text="Logout"
             android:textColor="@color/colorred"
-            android:textSize="13dp"
+            android:textSize="11sp"
             android:textStyle="bold|italic"/>
 
         <TextView
