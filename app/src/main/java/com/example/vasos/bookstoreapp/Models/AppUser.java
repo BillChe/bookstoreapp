@@ -9,7 +9,7 @@ public class AppUser
     private String appUserPassword;
     public int appUserNoOfBooks;
     public boolean isUserLoggedIn;
-    private ArrayList<Book> userBooksBought;
+    private ArrayList<Book> userBooksBought = new ArrayList<>();
 
     public AppUser(int appUserId, String appUserName, String appUserPassword, int appUserNoOfBooks, boolean isUserLoggedIn ) {
         this.appUserId = appUserId;

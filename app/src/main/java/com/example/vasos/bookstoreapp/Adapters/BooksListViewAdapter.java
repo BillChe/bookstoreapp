@@ -23,6 +23,19 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
 
     Context context;
     ArrayList<Book> books = new ArrayList<>();
+    boolean isMyBooks = false;
+
+    public boolean isMyBooks()
+    {
+        return isMyBooks;
+    }
+
+    public void setMyBooks(boolean myBooks)
+    {
+        isMyBooks = myBooks;
+    }
+
+
 
     public BooksListViewAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Book> objects)
     {
@@ -97,6 +110,7 @@ public class BooksListViewAdapter  extends ArrayAdapter<Book> {
         extras.putString("ImageUrl",book.getBookImageUrl());
         extras.putString("BookUrl",book.getBookUrl());
         extras.putString("BookPrice",String.valueOf(book.getBookPrice()));
+        extras.putBoolean("IsMyBooks",isMyBooks);
         viewBook.putExtras(extras);
         context.startActivity(viewBook);
     }

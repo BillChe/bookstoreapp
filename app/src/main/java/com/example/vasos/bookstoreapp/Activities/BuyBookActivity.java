@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
 
 import java.io.File;
@@ -30,7 +31,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.allBooks;
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
 
 
 public class BuyBookActivity extends Activity {
@@ -227,6 +231,17 @@ public class BuyBookActivity extends Activity {
 
         private  void displayFileDownloaded() {
             downloadProgresBar.setVisibility(View.GONE);
+            appUser.setAppUserNoOfBooks(appUser.getAppUserNoOfBooks()+1);
+            ArrayList<Book> books = new ArrayList<>();
+            for(int i = 0;i<=allBooks.size()-1;i++)
+            {
+                if(allBooks.get(i).getBookTitle().equals(bookToReadFileTitle))
+                {
+                    appUser.getUserBooksBought().add(allBooks.get(i));
+                }
+            }
+
+
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Successfully saved to your books!")
                     .setMessage("Your book is in \"YourBooks\" folder")

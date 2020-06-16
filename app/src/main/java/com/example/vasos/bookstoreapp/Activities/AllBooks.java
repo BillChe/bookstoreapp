@@ -29,6 +29,7 @@ public class AllBooks extends Activity {
     private boolean isMyBooksView;
     private TextView allBooksActivityTitleTextView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +61,14 @@ public class AllBooks extends Activity {
         {
             if(getIntent().getExtras().getBoolean("MyBooksIntent"))
             {
+                isMyBooksView = true;
                 allBooksActivityTitleTextView.setText("my Books");
                 booksListViewAdapter = new BooksListViewAdapter(this,0,appUser.getUserBooksBought());
-
+                booksListViewAdapter.setMyBooks(isMyBooksView);
                 booksListView.setAdapter(booksListViewAdapter);
                 booksListViewAdapter.notifyDataSetChanged();
+
+
             }
         }
 

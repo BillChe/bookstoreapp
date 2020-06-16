@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
     private void loadUsersBooksBought()
     {
         myBooks  = new ArrayList<>();
+        myBooks = appUser.getUserBooksBought();
         if(appUser!=null)
         {
             appUser.setUserBooksBought(myBooks);

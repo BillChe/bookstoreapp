@@ -33,6 +33,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
+
 public class SingleBookDescription extends Activity {
     private Button readButton;
     private Button backToAllBooksButton;
@@ -46,6 +48,7 @@ public class SingleBookDescription extends Activity {
     private static boolean isAddedToBooks;
     private String selectedBookUrl = "";
     private static String TestselectedBookName = "";
+    boolean isMyBooks = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class SingleBookDescription extends Activity {
         String description = intent.getStringExtra("Description");
         String id = intent.getStringExtra("Id");
         String imageUrl = intent.getStringExtra("ImageUrl");
+        isMyBooks = intent.getExtras().getBoolean("IsMyBooks");
         selectedBookUrl = intent.getStringExtra("BookUrl");
 
         if(context!=null)
@@ -74,9 +78,23 @@ public class SingleBookDescription extends Activity {
             public void onClick(View v) {
                 // back button pressed
                 Intent backToAllBooks = new Intent(SingleBookDescription.this,AllBooks.class);
+                if(isMyBooks)
+                {
+                    backToAllBooks.putExtra("MyBooksIntent",true);
+                }
                 startActivity(backToAllBooks);
             }
         });
+
+        if(appUser.getUserBooksBought().size()>0)
+            for(int i = 0;i<=appUser.getUserBooksBought().size()-1;i++)
+            {
+                if(appUser.getUserBooksBought().get(i).getBookTitle().equals(bookToReadFileTitle))
+                {
+                    readButton.setVisibility(View.VISIBLE);
+                    addToMyBooksButton.setVisibility(View.GONE);
+                }
+            }
 
 
     }
@@ -92,6 +110,8 @@ public class SingleBookDescription extends Activity {
         bookTitleDescriptionTextView = (TextView) findViewById(R.id.bookTitleDescriptionTextView);
         bookDescriptionTextTextView = (TextView) findViewById(R.id.bookDescriptionTextTextView);
         bookpriceTextView = (TextView) findViewById(R.id.bookpriceTextView);
+
+
     }
 
     @Override
@@ -110,6 +130,10 @@ public class SingleBookDescription extends Activity {
             @Override
             public void onClick(View view) {
                 Intent goBack = new Intent(SingleBookDescription.this,AllBooks.class);
+                if(isMyBooks)
+                {
+                    goBack.putExtra("MyBooksIntent",true);
+                }
                 goBack.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(goBack);
             }
@@ -145,6 +169,10 @@ public class SingleBookDescription extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent goBack = new Intent(SingleBookDescription.this,AllBooks.class);
+        if(isMyBooks)
+        {
+            goBack.putExtra("MyBooksIntent",true);
+        }
         goBack.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(goBack);
     }
@@ -154,6 +182,10 @@ public class SingleBookDescription extends Activity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent goBack = new Intent(SingleBookDescription.this,AllBooks.class);
+                if(isMyBooks)
+                {
+                    goBack.putExtra("MyBooksIntent",true);
+                }
                 startActivity(goBack);
                 break;
         }
