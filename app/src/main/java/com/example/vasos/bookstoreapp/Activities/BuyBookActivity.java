@@ -184,12 +184,13 @@ public class BuyBookActivity extends Activity {
         }
     }
 
-    class FileDownloader {
+    class FileDownloader
+    {
         private static final int  MEGABYTE = 1024 * 1024;
 
         public  void downloadFile(String fileUrl, File directory){
-            try {
-
+            try
+            {
                 URL url = new URL(fileUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -229,7 +230,8 @@ public class BuyBookActivity extends Activity {
             }
         }
 
-        private  void displayFileDownloaded() {
+        private  void displayFileDownloaded()
+        {
             downloadProgresBar.setVisibility(View.GONE);
             appUser.setAppUserNoOfBooks(appUser.getAppUserNoOfBooks()+1);
             ArrayList<Book> books = new ArrayList<>();

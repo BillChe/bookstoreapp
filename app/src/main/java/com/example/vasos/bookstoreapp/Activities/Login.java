@@ -124,20 +124,21 @@ public class Login extends Activity {
 
             }
         });
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            appUser = new AppUser(Integer.parseInt(session.getUserId()),session.getUsername(),session.getPassword(),0,true);
+            appUser.setAppUserName(session.getUsername());
+            appUser.setAppUserId(Integer.parseInt(session.getUserId()));
+            //db.insertUser(appUser);
+            intentToMain();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            appUser = new AppUser(id,session.getUsername(),passwordStr,0, true);
-            appUser.setAppUserName(session.getUsername());
-            appUser.setAppUserId(Integer.parseInt(session.getUserId()));
-            db.insertUser(appUser);
-            intentToMain();
-        }
+
     }
 
     public void intentToMain()
@@ -176,7 +177,7 @@ public class Login extends Activity {
                         String uid = user.getString("id");
                         String email = user.getString("email");
                         String username = user.getString("username");
-                        session.setUserInfo(uid,username);
+                        session.setUserInfo(uid,username,password);
                         // Inserting row in users table
                         id = Integer.parseInt(uid);
                         appUser = new AppUser(id,username,password,0, true);

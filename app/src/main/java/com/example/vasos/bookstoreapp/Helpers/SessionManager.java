@@ -26,13 +26,18 @@ public class SessionManager {
         editor.commit();
         Log.d(TAG, "User login session modified!");
     }
-    public void setUserInfo(String userId,String username) {
+    public void setUserInfo(String userId,String username, String password) {
         editor.putString("userId",userId);
         editor.putString("username",username);
+        editor.putString("password",password);
         // commit changes
         editor.commit();
 
         Log.d(TAG, "User login session modified!");
+    }
+    public String getPassword()
+    {
+        return pref.getString("password",null);
     }
     public String getUsername()
     {

@@ -55,8 +55,8 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     }
 
     private void createTables(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE "+USERS_TABLE_NAME+" ( " + COLUMN_USER_ID + " INTEGER PRIMARY KEY, "+COLUMN_USERNAME + " TEXT, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_USER_NUMBER_OF_BOOKS + " INTEGER)");
-        sqLiteDatabase.execSQL("CREATE TABLE "+BOOKS_TABLE_NAME+" ( " + COLUMN_BOOK_ID + " INTEGER PRIMARY KEY, "+COLUMN_BOOK_TITLE + " TEXT, " + COLUMN_BOOK_URL + " TEXT, " + COLUMN_BOOK_DESCRIPTION + " TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE "+USERS_TABLE_NAME+" ( " + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_USERNAME + " TEXT, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_USER_NUMBER_OF_BOOKS + " INTEGER)");
+        sqLiteDatabase.execSQL("CREATE TABLE "+BOOKS_TABLE_NAME+" ( " + COLUMN_BOOK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_BOOK_TITLE + " TEXT, " + COLUMN_BOOK_URL + " TEXT, " + COLUMN_BOOK_DESCRIPTION + " TEXT)");
     }
 
     private void insertBooks(SQLiteDatabase sqLiteDatabase, Book[] books)
@@ -82,14 +82,14 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     {
         ContentValues values = new ContentValues();
 
-            values.put(COLUMN_USER_ID, appUser.getAppUserId());
+            values.put(COLUMN_USER_ID, String.valueOf(appUser.getAppUserId()));
             values.put(COLUMN_USERNAME, appUser.getAppUserName());
             values.put(COLUMN_PASSWORD, appUser.getAppUserPassword());
-            values.put(COLUMN_USER_NUMBER_OF_BOOKS, appUser.getAppUserNoOfBooks());
+            values.put(COLUMN_USER_NUMBER_OF_BOOKS, String.valueOf(appUser.getAppUserNoOfBooks()));
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert(BOOKS_TABLE_NAME, null, values);
+        db.insert(USERS_TABLE_NAME, null, values);
         db.close();
 
     }
