@@ -2,7 +2,7 @@ package com.example.vasos.bookstoreapp.Helpers;
 
 public class AppConfig {
     // Server user login url
-    public static String URL_LOGIN = "https://users.iee.ihu.gr/~it093504/boostore_api/login.php";
+    public static String URL_LOGIN = "https://users.iee.ihu.gr/~it093504/bookstore_api/login.php";
     //http://users.iee.ihu.gr/~it093504/boostore_api/login.php?email=maniakas.nikoss@gmail.com&password=darklord
     // Server user register url
     public static String URL_REGISTER = "https://users.iee.ihu.gr/~it093504/boostore_api/signup.php";
