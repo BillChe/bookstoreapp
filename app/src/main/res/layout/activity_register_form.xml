@@ -7,7 +7,21 @@
     tools:context=".Activities.RegisterForm"
     android:orientation="vertical"
     android:layout_margin="3dp">
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"/>
 
+    <EditText
+        android:id="@+id/nameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        />
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="match_parent"
@@ -28,7 +42,7 @@
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="E-mail"
+        android:text="Email"
         android:textColor="@color/colorBlack"
         android:textStyle="bold"/>
 

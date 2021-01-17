@@ -14,6 +14,7 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "bookstore.db";
     private static final String USERS_TABLE_NAME = "userstable";
     private static final String BOOKS_TABLE_NAME = "boookstable";
+    private static final String  BUYED_BOOKS_TABLE_NAME = "buyedbookstable";
 
     private static final int DATABASE_VERSION = 1;
 
@@ -57,6 +58,23 @@ public class SQLiteDbHelper extends SQLiteOpenHelper {
     private void createTables(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+USERS_TABLE_NAME+" ( " + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_USERNAME + " TEXT, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_USER_NUMBER_OF_BOOKS + " INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE "+BOOKS_TABLE_NAME+" ( " + COLUMN_BOOK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_BOOK_TITLE + " TEXT, " + COLUMN_BOOK_URL + " TEXT, " + COLUMN_BOOK_DESCRIPTION + " TEXT)");
+        //TODO FIX IT ACCORDING API OF NIKOSS
+        sqLiteDatabase.execSQL("CREATE TABLE "+BUYED_BOOKS_TABLE_NAME+" ( " + COLUMN_BOOK_ID + " INTEGER, "+COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT)");
+
+    }
+    private void buyBook(String bookid, String userid)
+    {
+        ContentValues values = new ContentValues();
+
+        for(int i = 0; i < books.length; i ++)
+        {
+            values.put(COLUMN_BOOK_ID, bookid);
+            values.put(COLUMN_USER_ID, userid);
+        }
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+
+        sqLiteDatabase.insert(BUYED_BOOKS_TABLE_NAME, null, values);
     }
 
     private void insertBooks(SQLiteDatabase sqLiteDatabase, Book[] books)

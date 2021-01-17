@@ -51,6 +51,7 @@ public class Login extends Activity {
     private static String booksImageUrl = "https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
     private SessionManager session;
     private SQLiteDbHelper db;
+    public static String currentActiveUserId;
 
 
     @Override
@@ -138,7 +139,14 @@ public class Login extends Activity {
     protected void onResume() {
         super.onResume();
         // Check if user is already logged in or not
-
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            appUser = new AppUser(Integer.parseInt(session.getUserId()),session.getUsername(),session.getPassword(),0,true);
+            appUser.setAppUserName(session.getUsername());
+            appUser.setAppUserId(Integer.parseInt(session.getUserId()));
+            //db.insertUser(appUser);
+            intentToMain();
+        }
     }
 
     public void intentToMain()
@@ -181,7 +189,7 @@ public class Login extends Activity {
                         // Inserting row in users table
                         id = Integer.parseInt(uid);
                         appUser = new AppUser(id,username,password,0, true);
-                        db.insertUser(appUser);
+                       // db.insertUser(appUser);
 
 
                         // Launch main activity

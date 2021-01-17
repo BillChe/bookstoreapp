@@ -36,7 +36,7 @@ import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
 public class RegisterForm extends Activity {
     private Button registerFormButton;
     private Context context;
-    private EditText usernameEditText,passwordEditText, emailEditText;
+    private EditText usernameEditText,passwordEditText, emailEditText,nameEditText;
     boolean registered = false;
     private SessionManager session;
     private SQLiteDbHelper db;
@@ -52,6 +52,7 @@ public class RegisterForm extends Activity {
         usernameEditText = findViewById(R.id.usernameET);
         passwordEditText = findViewById(R.id.passwordET);
         emailEditText = findViewById(R.id.emailET);
+        nameEditText = findViewById(R.id.nameET);
 
         context = this;
         registerFormButton = (Button) findViewById(R.id.registerFormButton);
@@ -65,15 +66,14 @@ public class RegisterForm extends Activity {
         registerFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if((usernameEditText.getText().length()>=6) && (passwordEditText.getText().length()>=6))
+                if((usernameEditText.getText().length()>=6) && (passwordEditText.getText().length()>=6) && (nameEditText.getText().length()>=6))
                 {
                     String username = usernameEditText.getText().toString().trim();
                     String password = passwordEditText.getText().toString().trim();
                     String email = emailEditText.getText().toString().trim();
+                    String name = nameEditText.getText().toString().trim();
 
-                    registerUser(username, password, email, username);
-
-
+                    registerUser(username, password, email, name);
 
 
                 }
@@ -144,8 +144,6 @@ public class RegisterForm extends Activity {
                         db.insertUser(appUser);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
-                        SQLiteDbHelper sqLiteDbHelper= new SQLiteDbHelper(context);
-                        sqLiteDbHelper.insertUser(appUser);
 
                         registered = true;
                         new AlertDialog.Builder(context)

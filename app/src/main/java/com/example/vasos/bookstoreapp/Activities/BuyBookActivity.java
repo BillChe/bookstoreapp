@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -20,14 +21,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.vasos.bookstoreapp.Helpers.AppConfig;
 import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,16 +39,17 @@ import java.util.ArrayList;
 
 import static com.example.vasos.bookstoreapp.Activities.MainActivity.allBooks;
 import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUser;
+import static com.example.vasos.bookstoreapp.Activities.MainActivity.appUserId;
 
 
 public class BuyBookActivity extends Activity {
-    ImageView bookPayImageView2;
-    Button submitButton;
-    EditText cardNumberEditText,c2cEditText;
-    TextView cardNumberSumTextView;
-    Spinner cardMonthSpinner, cardYearSpinner;
+    private ImageView bookPayImageView2;
+    private Button submitButton;
+    private EditText cardNumberEditText,c2cEditText;
+    private TextView cardNumberSumTextView;
+    private Spinner cardMonthSpinner, cardYearSpinner;
     private LinearLayout downloadProgresBar;
-    String bookUrl,bookToReadFileTitle = "";
+    private String bookUrl,bookToReadFileTitle = "";
     private Context context;
 
     @Override
@@ -60,8 +65,6 @@ public class BuyBookActivity extends Activity {
 
         setViews();
         setListeners();
-
-
     }
 
     private void setViews()
@@ -78,11 +81,8 @@ public class BuyBookActivity extends Activity {
             Glide.with(getApplicationContext()).load("https://img.pngio.com/credit-card-icons-png-download-visa-mastercard-discover-logo-credit-card-logos-png-840_213.png").fitCenter().into(bookPayImageView2);
         }
         catch (Exception e)
-        {
-
-        }
+        { }
         submitButton = (Button) findViewById(R.id.submitButton);
-
     }
 
     private void setListeners()
@@ -145,15 +145,13 @@ public class BuyBookActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cardMonthSpinner.setAdapter(adapter);
 
-
         String[] arrayYearsSpinner = new String[] {
-                "20", "21", "22", "23", "24", "25", "26"
+                "21", "22", "23", "24", "25", "26", "27"
         };
 
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayYearsSpinner);
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cardYearSpinner.setAdapter(adapterYear);
-
     }
 
     public void download(String selectedBookUrl)
@@ -181,6 +179,22 @@ public class BuyBookActivity extends Activity {
             FileDownloader fileDownloader = new FileDownloader();
             fileDownloader.downloadFile(fileUrl, pdfFile);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            ArrayList<Book> books = new ArrayList<>();
+            for(int i = 0;i<=allBooks.size()-1;i++)
+            {
+                if(allBooks.get(i).getBookTitle().equals(bookToReadFileTitle))
+                {
+                    // appUser.getUserBooksBought().add(allBooks.get(i));
+                    String pos = String.valueOf(i+1);
+                    new JsonTask().execute(AppConfig.URL_BOOK_BUY_INFO + appUserId + "&book_id="+pos);// double buy
+                }
+            }
         }
     }
 
@@ -211,15 +225,8 @@ public class BuyBookActivity extends Activity {
                             downloadProgresBar.setVisibility(View.VISIBLE);
                         }
                     });
-
                 }
                 fileOutputStream.close();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        displayFileDownloaded();
-                    }
-                });
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -230,39 +237,94 @@ public class BuyBookActivity extends Activity {
             }
         }
 
-        private  void displayFileDownloaded()
-        {
-            downloadProgresBar.setVisibility(View.GONE);
-            appUser.setAppUserNoOfBooks(appUser.getAppUserNoOfBooks()+1);
-            ArrayList<Book> books = new ArrayList<>();
-            for(int i = 0;i<=allBooks.size()-1;i++)
-            {
-                if(allBooks.get(i).getBookTitle().equals(bookToReadFileTitle))
-                {
-                    appUser.getUserBooksBought().add(allBooks.get(i));
+    }
+    private class JsonTask extends AsyncTask<String, String, String> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected String doInBackground(String... params) {
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoOutput(true);
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line + "\n");
+                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                }
+
+                return buffer.toString();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }  finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Successfully saved to your books!")
-                    .setMessage("Your book is in \"YourBooks\" folder")
-                    .setCancelable(false)
-                    .setIcon(getResources().getDrawable(android.R.drawable.ic_menu_save))
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do things
-                            dialog.dismiss();
-                            Intent buyBook = new Intent(BuyBookActivity.this,AllBooks.class);
-                            buyBook.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(buyBook);
-                        }
-                    });
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (appUser != null) {
+                        displayFileDownloaded();
+                    }
+                }
+            });
 
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
+        }
+        private  void displayFileDownloaded()
+        {
+            // downloadProgresBar.setVisibility(View.GONE);
+            // appUser.setAppUserNoOfBooks(appUser.getAppUserNoOfBooks()+1);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    downloadProgresBar.setVisibility(View.GONE);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Successfully saved to your books!")
+                            .setMessage("Your book is in \"YourBooks\" folder")
+                            .setCancelable(false)
+                            .setIcon(getResources().getDrawable(android.R.drawable.ic_menu_save))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                    Intent buyBook = new Intent(BuyBookActivity.this,AllBooks.class);
+                                    buyBook.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(buyBook);
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
         }
     }
 }

@@ -22,6 +22,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
             <TextView
@@ -35,6 +36,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:layout_marginRight="30dp"/>
+
         </LinearLayout>
 
 
@@ -55,53 +57,6 @@
 
         </SearchView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-
-
-            <TextView
-                android:id="@+id/idTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ID"
-                android:outlineProvider="bounds"/>
-
-            <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Title" />
-
-            <TextView
-                android:id="@+id/categoryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Category" />
-
-            <TextView
-                android:id="@+id/authorTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Author" />
-
-            <TextView
-                android:id="@+id/isbnTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ISBN" />
-
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -120,6 +75,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
              >
+                <ProgressBar
+                    android:id="@+id/progressBarBooks"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -132,8 +94,6 @@
 
                 </ListView>
             </LinearLayout>
-
-
 
 
     </LinearLayout>

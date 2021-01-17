@@ -3,9 +3,9 @@ package com.example.vasos.bookstoreapp.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -14,18 +14,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.example.vasos.bookstoreapp.Helpers.AppConfig;
+import com.example.vasos.bookstoreapp.Helpers.AppController;
 import com.example.vasos.bookstoreapp.Helpers.SessionManager;
 import com.example.vasos.bookstoreapp.Models.AppUser;
 import com.example.vasos.bookstoreapp.Models.Book;
 import com.example.vasos.bookstoreapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.vasos.bookstoreapp.Activities.BookView.lastOpenedBookName;
+import static com.example.vasos.bookstoreapp.Helpers.AppController.TAG;
 
 public class MainActivity extends Activity {
     private Button logoutButton;
@@ -34,10 +51,9 @@ public class MainActivity extends Activity {
     private Button continueReadingButton;
     private ImageView booksImageView;
     public static String bookToReadFileTitle;
-    private Bitmap bmp;
     public static String booksImageUrl = "https://ashmagautam.files.wordpress.com/2013/11/mcj038257400001.jpg";
     private TextView numberOfBooksTextView,welcomeTextView;
-    public static int appUserId = 0;
+    public static int appUserId = -1;
     public static AppUser appUser ;
     private SessionManager session;
     private ArrayList<Book> myBooks = new ArrayList<>();
@@ -55,11 +71,10 @@ public class MainActivity extends Activity {
             if(appUser.getAppUserName()!=null)
             {
                 welcomeTextView.setText("Hello " + appUser.getAppUserName());
+                appUserId = appUser.getAppUserId();
             }
-
         }
         loadAllBooks();
-        loadUsersBooksBought();
 
     }
 
@@ -72,28 +87,26 @@ public class MainActivity extends Activity {
         booksImageView = (ImageView) findViewById(R.id.booksImageView);
         numberOfBooksTextView = (TextView) findViewById(R.id.numberOfBooksTextView);
         welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
-
     }
 
-    private void loadUsersBooksBought()
+    public void loadUsersBooksBought()
     {
         myBooks  = new ArrayList<>();
 
-        if(appUser!=null)
+        if(appUser!=null && appUserId>=0)
         {
-            myBooks = appUser.getUserBooksBought();
-            appUser.setUserBooksBought(myBooks);
-            appUser.setAppUserNoOfBooks(myBooks.size());
+
+            new JsonTask().execute(AppConfig.URL_BOOKS_BUYED + appUserId);
         }
-
-
     }
 
     private void loadAllBooks()
     {
         allBooks.clear();
 
-        Book book = new Book(1,"Frankenstein","Shelley Mary",
+        getbooks();
+
+      /*  Book book = new Book(1,"Frankenstein","Shelley Mary",
                 "The 1818 edition of Frankenstein. This version is based on a digitisation by Distributed Proofreaders cross checked against an existing Project Gutenberg text and a new DP digitisation of the 1831 edition. Frankenstein; or, The Modern Prometheus is a novel written by English author Mary Shelley (1797–1851) that tells the story of Victor Frankenstein, a young scientist who creates a hideous sapient creature in an unorthodox scientific experiment.",
                 "Science Fiction","https://archive.org/download/Frankenstein1818Edition/frank-a5.pdf",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Frankenstein.1831.inside-cover.jpg/800px-Frankenstein.1831.inside-cover.jpg");
@@ -104,7 +117,7 @@ public class MainActivity extends Activity {
         book = new Book(2,"Philosophy of natural therapeutics","Lindlahr Henry",
                 "Originating in Europe in the early twentieth century, the Nature Cure movement laid the foundations for much of complementary medicine and naturopathy as we know it today. Dr Henry Lindlahr was one of the pioneers of Nature Cure who popularised the movement in the West. Eloquent and passionate about his theories, in this ground-breaking book Dr Lindlahr outlines the principles and practical applications of Nature Cure, to create a comprehensive philosophy of natural therapeutics.",
                 "Healing/Physical Therapy","https://archive.org/download/philosophyofnatu00lind/philosophyofnatu00lind.pdf",
-                "https://ia802607.us.archive.org/BookReader/BookReaderImages.php?zip=/11/items/philosophyofnatu00lind/philosophyofnatu00lind_jp2.zip&file=philosophyofnatu00lind_jp2/philosophyofnatu00lind_0001.jp2&scale=4&rotate=0");
+                "https://images-na.ssl-images-amazon.com/images/I/51NUN0D6WmL._SX331_BO1,204,203,200_.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -112,7 +125,7 @@ public class MainActivity extends Activity {
         book = new Book(3,"The autobiography of Benjamin Franklin","Benjamin Franklin",
                 "Franklin's account of his life is divided into four parts, reflecting the different periods at which he wrote them. There are actual breaks in the narrative between the first three parts, but Part Three's narrative continues into Part Four without an authorial break.",
                 "Autobiography","https://archive.org/download/autobiobenfran00miffrich/autobiobenfran00miffrich.pdf",
-                "https://ia802604.us.archive.org/BookReader/BookReaderImages.php?zip=/26/items/autobiobenfran00miffrich/autobiobenfran00miffrich_jp2.zip&file=autobiobenfran00miffrich_jp2/autobiobenfran00miffrich_0001.jp2&scale=4&rotate=0");
+                "https://upload.wikimedia.org/wikipedia/commons/0/04/Memoirs_of_Franklin.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -120,7 +133,7 @@ public class MainActivity extends Activity {
         book = new Book(4,"A guide to the history of science; a first guide for the study of the history of science, with introductory essays on science and tradition","Santon George",
                 "An authentic and of the very first gudes to History of Science teaching in modern times with an exhaustive,classified bibiliography on history of science.",
                 "Science/History","https://archive.org/download/guidetohistoryof00sart/guidetohistoryof00sart.pdf",
-                "https://ia800203.us.archive.org/BookReader/BookReaderImages.php?zip=/14/items/guidetohistoryof00sart/guidetohistoryof00sart_jp2.zip&file=guidetohistoryof00sart_jp2/guidetohistoryof00sart_0001.jp2&scale=4&rotate=0");
+                "https://ia800203.us.archive.org/BookReader/BookReaderPreview.php?id=guidetohistoryof00sart&itemPath=%2F14%2Fitems%2Fguidetohistoryof00sart&server=ia800203.us.archive.org&page=cover_t.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -130,7 +143,7 @@ public class MainActivity extends Activity {
                 "In chapters 1–11, Eddington explains, in non-technical and sometimes entertaining language, the main ideas of modern physics as it stood in 1927. " +
                         "In chapters 12–15, he then discuses what he considers their main philosophical and religious implications.",
                 "Science/Philosophy","https://archive.org/download/natureofphysical00eddi/natureofphysical00eddi.pdf",
-                "https://ia600200.us.archive.org/BookReader/BookReaderImages.php?zip=/3/items/natureofphysical00eddi/natureofphysical00eddi_jp2.zip&file=natureofphysical00eddi_jp2/natureofphysical00eddi_0007.jp2&scale=4&rotate=0");
+                "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387439281l/1682216.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -142,15 +155,14 @@ public class MainActivity extends Activity {
                         "awakening the desire to go farther afield and to explore in more detail the territory of some particular science. It gives the preliminary view and contact that make possible " +
                         "an intelligent choice of the sciences for more extensive and intensive study in later school years.",
                 "Science","https://archive.org/download/oursurroundingse00clemrich/oursurroundingse00clemrich.pdf",
-                "https://ia802605.us.archive.org/BookReader/BookReaderImages.php?zip=/4/items/oursurroundingse00clemrich/oursurroundingse00clemrich_jp2.zip&file=oursurroundingse00clemrich_jp2/oursurroundingse00clemrich_0001.jp2&scale=4&rotate=0");
+                "https://archive.org/services/img/oursurroundingse00clemrich");
         book.setBookPrice(10);
         allBooks.add(book);
         book = new Book(7,"Science, religion and reality","Joseph Needham, Arthur James Balfour",
                 "Essays on science, religion, and reality by various authors. Contents: Introduction; Magic Science and Religion; Historical relations of religion and science; Science and religion in the nineteenth century, The domain of physical science; Mechanistic biology and the religious consciousness; " +
                         "Sphere of religion; Religion and psychology; Science Christianity and Modern Civilization",
                 "Science/Religion","https://archive.org/download/sciencereligionr00need/sciencereligionr00need.pdf",
-                "https://ia800303.us.archive.org/BookReader/" +
-                        "BookReaderImages.php?zip=/9/items/sciencereligionr00need/sciencereligionr00need_jp2.zip&file=sciencereligionr00need_jp2/sciencereligionr00need_0007.jp2&scale=4&rotate=0");
+                "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348978845l/149798.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -161,8 +173,7 @@ public class MainActivity extends Activity {
                         " as well as science fiction literature.",
                 "Science/Fiction","https://archive.org/download/" +
                 "Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo.pdf",
-                "https://ia801305.us.archive.org/BookReader/BookReaderImages.php?zip=/7/items/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy/" +
-                        "Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_jp2.zip&file=Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_jp2/Science_Fiction_and_the_Prediction_of_the_Future_Essays_on_Foresight_and_Fallacy_by_Gary_Westfahl_and_Donald_E._Palumbo_0000.jp2&scale=4&rotate=0");
+                "https://q9f3r2c3.rocketcdn.me/mcwp17/wp-content/uploads/978-0-7864-5841-7-1.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -172,7 +183,7 @@ public class MainActivity extends Activity {
                         "The sabotage fails and McCabe begins to suspect that he was the target of an assassination as opposed to a victim of a freak accident. The novel then jumps forward to continue" +
                         " the story of Cain's first novel, The Accident Man. Carver is recovering in a Swiss hospital and attempting to regain memories lost during the torture by that book's villain.The story centres around McCabe's attempt to obtain a lost Russian suitcase nuke in an effort to instigate a nuclear holocaust that would bring about the rapture; Carver aims to stop him.",
                 "Nuclear terrorism","https://archive.org/download/survivor00corg/survivor00corg.pdf",
-                "https://ia801601.us.archive.org/BookReader/BookReaderImages.php?zip=/21/items/survivor00corg/survivor00corg_jp2.zip&file=survivor00corg_jp2/survivor00corg_0001.jp2&scale=4&rotate=0");
+                "https://upload.wikimedia.org/wikipedia/en/thumb/6/64/The_Survivor.jpg/220px-The_Survivor.jpg");
 
         book.setBookPrice(10);
         allBooks.add(book);
@@ -184,9 +195,88 @@ public class MainActivity extends Activity {
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Dracula1st.jpeg/200px-Dracula1st.jpeg");
 
         book.setBookPrice(10);
-        allBooks.add(book);
+        allBooks.add(book);*/
+        //loadUsersBooksBought();//!!!
     }
 
+    /**
+     * function to load all books from database through api call
+     * */
+    private void getbooks() {
+        // Tag used to cancel the request
+        String tag_string_req = "req_books";
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_SEARCH_BOOK_INFO, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Login Response: " + response.toString());
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    // Check for error node in json
+                    if (!error) {
+                        JSONObject jObject = new JSONObject(response.toString());
+                        JSONArray jArray = jObject.getJSONArray("data");
+                        for (int i=0; i < jArray.length(); i++)
+                        {
+                            try {
+                                JSONObject oneObject = jArray.getJSONObject(i);
+                                // Pulling items from the array
+                                String bookid = oneObject.getString("id");
+                                String title = oneObject.getString("tittle");
+                                String description = oneObject.getString("description");
+                                String author = oneObject.getString("author");
+                                String download_url = oneObject.getString("download_url");
+                                String image_url = oneObject.getString("image_url");
+                                String category = oneObject.getString("category");
+
+                                Book book1   = new Book(Integer.parseInt(bookid),title,author,description,category,download_url,image_url);
+                                book1.setBookPrice(10);
+                                allBooks.add(book1);
+                                System.out.println("bookid" + bookid + " int value " +Integer.parseInt(bookid));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        loadUsersBooksBought();
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Login Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+       /*         params.put("email", email);
+                params.put("password", password);*/
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -202,7 +292,6 @@ public class MainActivity extends Activity {
                 startActivity(exitApp);
 
                 session.setLogin(false);
-
             }
         });
 
@@ -239,16 +328,8 @@ public class MainActivity extends Activity {
                 {
                     Toast.makeText(getApplicationContext(),"Sorry no last Opened Book Name found",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-        String appUserNoOfBooks = "0";
-        if(appUser!=null)
-        {
-            numberOfBooksTextView.setText(String.valueOf(appUser.getAppUserNoOfBooks()));
-        }
-
     }
 
     @Override
@@ -280,24 +361,90 @@ public class MainActivity extends Activity {
         return allBooks;
     }
 
-
-    public Bitmap getBitmapFromURL(String src) {
-        try {
-            java.net.URL url = new java.net.URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url
-                    .openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public AppUser getAppUser() {
         return appUser;
+    }
+
+    private class JsonTask extends AsyncTask<String, String, String> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        protected String doInBackground(String... params) {
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+                InputStream stream = connection.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line+"\n");
+                    Log.d("Response: ", "> " + line);   //here u ll get whole response...... :-)
+                }
+                JSONObject jObject = new JSONObject(buffer.toString());
+                JSONArray jArray = jObject.getJSONArray("data");
+                for (int i=0; i < jArray.length(); i++)
+                {
+                    try {
+                        JSONObject oneObject = jArray.getJSONObject(i);
+                        // Pulling items from the array
+                        String bookid = oneObject.getString("book_id");
+                        myBooks.add(MainActivity.allBooks.get(Integer.parseInt(bookid)-1));
+                        System.out.println("bookid" + bookid + " int value " +Integer.parseInt(bookid));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return buffer.toString();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            appUser.setUserBooksBought(myBooks);
+            appUser.setAppUserNoOfBooks(myBooks.size());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(appUser!=null)
+                    {
+                        numberOfBooksTextView.setText(String.valueOf(appUser.getAppUserNoOfBooks()));
+                    }
+                }
+            });
+
+        }
     }
 }

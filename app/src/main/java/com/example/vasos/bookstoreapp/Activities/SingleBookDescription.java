@@ -72,7 +72,6 @@ public class SingleBookDescription extends Activity {
         bookDescriptionTextTextView.setText(description);
         bookpriceTextView.setText(intent.getStringExtra("BookPrice") + " €");
 
-
         actionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +94,6 @@ public class SingleBookDescription extends Activity {
                     addToMyBooksButton.setVisibility(View.GONE);
                 }
             }
-
-
     }
 
     private void setViews()
@@ -110,8 +107,6 @@ public class SingleBookDescription extends Activity {
         bookTitleDescriptionTextView = (TextView) findViewById(R.id.bookTitleDescriptionTextView);
         bookDescriptionTextTextView = (TextView) findViewById(R.id.bookDescriptionTextTextView);
         bookpriceTextView = (TextView) findViewById(R.id.bookpriceTextView);
-
-
     }
 
     @Override
@@ -147,7 +142,6 @@ public class SingleBookDescription extends Activity {
                     ActivityCompat.requestPermissions(SingleBookDescription.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             101);
-
                     }
                     else
                 {
@@ -157,7 +151,6 @@ public class SingleBookDescription extends Activity {
                     startActivity(buyBook);
 
                    // download(selectedBookUrl);
-
                 }
                 }
 
@@ -206,9 +199,7 @@ public class SingleBookDescription extends Activity {
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = new File(extStorageDirectory, "YourBooks");
             folder.mkdir();
-
             File pdfFile = new File(folder, fileName);
-
             try{
                 pdfFile.createNewFile();
             }catch (IOException e){
@@ -220,13 +211,11 @@ public class SingleBookDescription extends Activity {
         }
     }
 
-
       class FileDownloader {
         private static final int  MEGABYTE = 1024 * 1024;
 
         public  void downloadFile(String fileUrl, File directory){
             try {
-
                 URL url = new URL(fileUrl);
                 HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -268,8 +257,8 @@ public class SingleBookDescription extends Activity {
 
          private  void displayFileDownloaded() {
              downloadProgresBar.setVisibility(View.GONE);
-             addToMyBooksButton.setVisibility(View.GONE);//!!!!!!!!!!!!!!!!!!!!!
-             readButton.setVisibility(View.VISIBLE);//!!!!!!!!!!!!!!!!!!!!!
+             addToMyBooksButton.setVisibility(View.GONE);//!!
+             readButton.setVisibility(View.VISIBLE);//!!!!!
              AlertDialog.Builder builder = new AlertDialog.Builder(context);
              builder.setMessage("Successfully added to your books!")
                      .setCancelable(false)

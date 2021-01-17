@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Username"
+        android:text="Email"
         android:textStyle="bold"
         android:textIsSelectable="false"
         android:clickable="false"/>
@@ -45,12 +45,12 @@
         android:id="@+id/usernameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Username"
+        android:hint="Enter Email"
         android:backgroundTint="#2626c4"
         android:textIsSelectable="false"
         android:textStyle="italic"
         android:textCursorDrawable="@color/colorLightGrey"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         />
 
     <TextView
